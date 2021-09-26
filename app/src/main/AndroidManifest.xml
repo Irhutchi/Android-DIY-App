@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoItYourself">
         <activity
-            android:name=".DIYActivity"
+            android:name=".activities.DIYActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Do It Yourself</string>
+    <string name="button_addDIYActivity">Add DIY Job</string>
+    <string name="hint_diyTitle">DIY Title</string>
 </resources>
