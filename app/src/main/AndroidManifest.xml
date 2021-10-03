@@ -11,14 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoItYourself">
         <activity
-            android:name=".activities.DIYActivity"
+            android:name=".activities.DIYListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.DIYActivity" />
     </application>
 
 </manifest>
