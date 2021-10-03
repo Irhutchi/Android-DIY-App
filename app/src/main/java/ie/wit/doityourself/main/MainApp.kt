@@ -19,8 +19,8 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("DIY App started")
-        tasks.add(DIYModel("One", "About one..."))
-        tasks.add(DIYModel("Two", "About two..."))
-        tasks.add(DIYModel("Three", "About three..."))
+//        tasks.add(DIYModel("One", "About one..."))
+//        tasks.add(DIYModel("Two", "About two..."))
+//        tasks.add(DIYModel("Three", "About three..."))
     }
 }

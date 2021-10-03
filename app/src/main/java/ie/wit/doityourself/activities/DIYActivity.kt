@@ -32,8 +32,11 @@ class DIYActivity : AppCompatActivity() {
             if(task.title.isNotEmpty()) {
                 i("add Button Pressed: $task.title")
                 app.tasks.add(task.copy())    // use mainApp (3)
-                for (i in app.tasks.indices)
-                { i("Diy Job[$i]: ${this.app.tasks[i]}") }
+                for (i in app.tasks.indices) {
+                    i("Diy Job[$i]: ${this.app.tasks[i]}")
+                }
+                setResult(RESULT_OK)
+                finish()
             }
             else {
                 Snackbar

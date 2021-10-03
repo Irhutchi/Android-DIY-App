@@ -1,9 +1,11 @@
 package ie.wit.doityourself.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
+import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,6 +38,18 @@ class DIYListActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    // menu event handler - if the event is item_add, we start the DIYListActivity
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_add -> {
+                // expose intent to permit activity to be launched
+                val launcherIntent = Intent(this, DIYActivity::class.java)
+                startActivityForResult(launcherIntent,0)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 
