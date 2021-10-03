@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.DIYActivity">
+    tools:context="ie.wit.doityourself.activities.DIYActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,12 +41,26 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/diyTitle"
+                    android:id="@+id/taskTitle"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="8dp"
                     android:autofillHints=""
-                    android:hint="@string/hint_diyTitle"
+                    android:hint="@string/hint_taskTitle"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="8dp"
+                    android:autofillHints=""
+                    android:hint="@string/hint_taskDescription"
                     android:inputType="text"
                     android:maxLength="25"
                     android:maxLines="1"
@@ -63,12 +77,11 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/button_addDIYActivity"
+                    android:text="@string/button_addTask"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
             </LinearLayout>
         </ScrollView>
 
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
