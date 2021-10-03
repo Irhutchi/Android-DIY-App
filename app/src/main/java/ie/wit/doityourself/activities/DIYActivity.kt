@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import ie.wit.doityourself.databinding.ActivityDiyBinding
+import ie.wit.doityourself.main.MainApp
 import ie.wit.doityourself.models.DIYModel
 import timber.log.Timber
 import timber.log.Timber.i
@@ -14,17 +15,15 @@ class DIYActivity : AppCompatActivity() {
     // objects on a particular layout
     private lateinit var binding: ActivityDiyBinding
     var task = DIYModel()
-    val tasks = ArrayList<DIYModel>()
+    lateinit var app: MainApp // ref to mainApp object (1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //inflate layout using binding class
         binding = ActivityDiyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Timber.plant(Timber.DebugTree())
-
+        app = application as MainApp    // initialise mainApp (2)
         i("DIY Activity started...")
 
         binding.btnAdd.setOnClickListener() {
@@ -32,9 +31,9 @@ class DIYActivity : AppCompatActivity() {
             task.description = binding.description.text.toString()
             if(task.title.isNotEmpty()) {
                 i("add Button Pressed: $task.title")
-                tasks.add(task.copy())
-                for (i in tasks.indices)
-                { i("Diy Job[$i]: ${this.tasks[i]}") }
+                app.tasks.add(task.copy())    // use mainApp (3)
+                for (i in app.tasks.indices)
+                { i("Diy Job[$i]: ${this.app.tasks[i]}") }
             }
             else {
                 Snackbar
