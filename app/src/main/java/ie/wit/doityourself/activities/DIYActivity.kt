@@ -2,7 +2,10 @@ package ie.wit.doityourself.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
+import ie.wit.doityourself.R
 import ie.wit.doityourself.databinding.ActivityDiyBinding
 import ie.wit.doityourself.main.MainApp
 import ie.wit.doityourself.models.DIYModel
@@ -22,6 +25,9 @@ class DIYActivity : AppCompatActivity() {
         //inflate layout using binding class
         binding = ActivityDiyBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // In order to present the toolbar - we must explicitly enable it
+        binding.toolbarAdd.title = title
+        setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp    // initialise mainApp (2)
         i("DIY Activity started...")
@@ -44,5 +50,17 @@ class DIYActivity : AppCompatActivity() {
                     .show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_diytask, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_cancel -> { finish() }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

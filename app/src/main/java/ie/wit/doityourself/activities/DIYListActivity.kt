@@ -24,6 +24,7 @@ class DIYListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDiyListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // In order to present the toolbar - we must explicitly enable it
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
 
