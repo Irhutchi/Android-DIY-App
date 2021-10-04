@@ -30,7 +30,8 @@ class DIYListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = DIYAdapter(app.tasks)
+//        binding.recyclerView.adapter = DIYAdapter(app.tasks)
+        binding.recyclerView.adapter = DIYAdapter(app.tasks.findAll())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -37,10 +37,7 @@ class DIYActivity : AppCompatActivity() {
             task.description = binding.description.text.toString()
             if(task.title.isNotEmpty()) {
                 i("add Button Pressed: $task.title")
-                app.tasks.add(task.copy())    // use mainApp (3)
-                for (i in app.tasks.indices) {
-                    i("Diy Job[$i]: ${this.app.tasks[i]}")
-                }
+                app.tasks.create(task.copy())    // use mainApp (3)
                 setResult(RESULT_OK)
                 finish()
             }

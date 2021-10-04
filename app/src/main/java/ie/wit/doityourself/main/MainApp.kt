@@ -6,14 +6,15 @@ package ie.wit.doityourself.main
 */
 
 import android.app.Application
-import ie.wit.doityourself.models.DIYModel
+import ie.wit.doityourself.models.DIYMemStore
 import timber.log.Timber
 import timber.log.Timber.i
 
 
 class MainApp : Application() {
 
-    val tasks = ArrayList<DIYModel>()
+    //val tasks = ArrayList<DIYModel>()
+    val tasks = DIYMemStore()
 
     override fun onCreate() {
         super.onCreate()
