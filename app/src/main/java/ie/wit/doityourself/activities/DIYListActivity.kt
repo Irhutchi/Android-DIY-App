@@ -5,14 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.wit.doityourself.R
 import ie.wit.doityourself.adapters.DIYAdapter
+import ie.wit.doityourself.adapters.DIYListener
 import ie.wit.doityourself.databinding.ActivityDiyListBinding
 import ie.wit.doityourself.main.MainApp
+import ie.wit.doityourself.models.DIYModel
 
-class DIYListActivity : AppCompatActivity() {
+class DIYListActivity : AppCompatActivity(), DIYListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityDiyListBinding
@@ -31,7 +32,7 @@ class DIYListActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
 //        binding.recyclerView.adapter = DIYAdapter(app.tasks)
-        binding.recyclerView.adapter = DIYAdapter(app.tasks.findAll())
+        binding.recyclerView.adapter = DIYAdapter(app.tasks.findAll(),this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -49,5 +50,10 @@ class DIYListActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDIYClick(task: DIYModel) {
+        val launcherIntent = Intent(this, DIYActivity::class.java)
+        startActivityForResult(launcherIntent,0)
     }
 }
