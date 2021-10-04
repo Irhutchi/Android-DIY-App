@@ -32,6 +32,12 @@ class DIYActivity : AppCompatActivity() {
         app = application as MainApp    // initialise mainApp (2)
         i("DIY Activity started...")
 
+        if(intent.hasExtra("task_edit")) {
+            task = intent.extras?.getParcelable("task_edit")!!
+            binding.taskTitle.setText(task.title)
+            binding.description.setText(task.description)
+        }
+
         binding.btnAdd.setOnClickListener() {
             task.title = binding.taskTitle.text.toString()
             task.description = binding.description.text.toString()

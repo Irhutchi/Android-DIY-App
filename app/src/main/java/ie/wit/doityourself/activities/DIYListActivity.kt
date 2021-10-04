@@ -54,6 +54,8 @@ class DIYListActivity : AppCompatActivity(), DIYListener {
 
     override fun onDIYClick(task: DIYModel) {
         val launcherIntent = Intent(this, DIYActivity::class.java)
+        // passing the task to the actvity, enabled via the parcelable mechanism
+        launcherIntent.putExtra("task_edit", task)
         startActivityForResult(launcherIntent,0)
     }
 }
