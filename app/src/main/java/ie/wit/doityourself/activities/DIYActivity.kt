@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import ie.wit.doityourself.R
 import ie.wit.doityourself.databinding.ActivityDiyBinding
 import ie.wit.doityourself.helpers.showImagePicker
@@ -47,6 +48,9 @@ class DIYActivity : AppCompatActivity() {
             binding.taskTitle.setText(task.title)
             binding.description.setText(task.description)
             binding.btnAdd.setText(R.string.save_task)
+            Picasso.get()
+                .load(task.image)
+                .into(binding.taskImage)
         }
 
         binding.btnAdd.setOnClickListener {
@@ -95,6 +99,11 @@ class DIYActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
+                            // Only recovering uri when the result Code is RESULT_OK
+                            task.image = result.data!!.data!!
+                            Picasso.get()
+                                .load(task.image)
+                                .into(binding.taskImage)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
