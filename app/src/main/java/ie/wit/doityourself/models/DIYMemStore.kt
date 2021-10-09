@@ -23,7 +23,7 @@ class DIYMemStore: DIYStore {
         logAll()
     }
 
-    override fun update(task: DIYModel) {
+    fun update(task: DIYModel) {
         var foundTask: DIYModel? = tasks.find { t -> t.id == task.id }
         if (foundTask != null) {
             foundTask.title = task.title

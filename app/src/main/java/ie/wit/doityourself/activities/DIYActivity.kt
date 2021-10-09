@@ -22,6 +22,7 @@ class DIYActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var edit = false
         //inflate layout using binding class
         binding = ActivityDiyBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -33,24 +34,29 @@ class DIYActivity : AppCompatActivity() {
         i("DIY Activity started...")
 
         if(intent.hasExtra("task_edit")) {
+            edit = true
             task = intent.extras?.getParcelable("task_edit")!!
             binding.taskTitle.setText(task.title)
             binding.description.setText(task.description)
+            binding.btnAdd.setText(R.string.save_task)
         }
 
         binding.btnAdd.setOnClickListener() {
             task.title = binding.taskTitle.text.toString()
             task.description = binding.description.text.toString()
-            if(task.title.isNotEmpty()) {
-                i("add Button Pressed: $task.title")
-                app.tasks.create(task.copy())    // use mainApp (3)
+            if(task.title.isEmpty()) {
+                Snackbar
+                    .make(it, R.string.enter_diyTask_title, Snackbar.LENGTH_LONG)
+                    .show()
+            } else {
+                if (edit) {
+                    app.tasks.update(task.copy())
+                } else {
+                    app.tasks.create(task.copy()) // use mainApp (3)
+                    i("add Button Pressed: $task.title")
+                }
                 setResult(RESULT_OK)
                 finish()
-            }
-            else {
-                Snackbar
-                    .make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
-                    .show()
             }
         }
     }
