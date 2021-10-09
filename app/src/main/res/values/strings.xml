@@ -7,4 +7,5 @@
     <string name="hint_taskTitle">DIY Title</string>
     <string name="hint_taskDescription">Description</string>
     <string name="save_task"> Save Task</string>
+    <string name="button_addImage"> Add Image </string>
 </resources>

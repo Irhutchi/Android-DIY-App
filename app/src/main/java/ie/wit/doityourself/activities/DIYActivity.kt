@@ -23,6 +23,7 @@ class DIYActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var edit = false
+
         //inflate layout using binding class
         binding = ActivityDiyBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -41,7 +42,7 @@ class DIYActivity : AppCompatActivity() {
             binding.btnAdd.setText(R.string.save_task)
         }
 
-        binding.btnAdd.setOnClickListener() {
+        binding.btnAdd.setOnClickListener {
             task.title = binding.taskTitle.text.toString()
             task.description = binding.description.text.toString()
             if(task.title.isEmpty()) {
@@ -59,6 +60,11 @@ class DIYActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+        binding.chooseImage.setOnClickListener {
+            i("Select image")
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
