@@ -58,4 +58,11 @@ class DIYListActivity : AppCompatActivity(), DIYListener {
         launcherIntent.putExtra("task_edit", task)
         startActivityForResult(launcherIntent,0)
     }
+
+    // This is another lifecycle event. This func is triggered when an activity
+    // we have started finishes.
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 }
