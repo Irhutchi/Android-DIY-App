@@ -1,12 +1,16 @@
 package ie.wit.doityourself.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 import ie.wit.doityourself.R
 import ie.wit.doityourself.databinding.ActivityDiyBinding
+import ie.wit.doityourself.helpers.showImagePicker
 import ie.wit.doityourself.main.MainApp
 import ie.wit.doityourself.models.DIYModel
 import timber.log.Timber
@@ -19,6 +23,7 @@ class DIYActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDiyBinding
     var task = DIYModel()
     lateinit var app: MainApp // ref to mainApp object (1)
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,8 @@ class DIYActivity : AppCompatActivity() {
         // In order to present the toolbar - we must explicitly enable it
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
+
+        registerImagePickerCallback()   // initialise the image picker callback func.
 
         app = application as MainApp    // initialise mainApp (2)
         i("DIY Activity started...")
@@ -63,6 +70,7 @@ class DIYActivity : AppCompatActivity() {
 
         binding.chooseImage.setOnClickListener {
             i("Select image")
+            showImagePicker(imageIntentLauncher)    // trigger the image picker
         }
 
     }
@@ -77,5 +85,20 @@ class DIYActivity : AppCompatActivity() {
             R.id.item_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Result ${result.data!!.data}")
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 }
