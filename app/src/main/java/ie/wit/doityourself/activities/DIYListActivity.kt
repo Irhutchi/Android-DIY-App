@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.wit.doityourself.R
 import ie.wit.doityourself.adapters.DIYAdapter
@@ -17,6 +19,7 @@ class DIYListActivity : AppCompatActivity(), DIYListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityDiyListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +29,15 @@ class DIYListActivity : AppCompatActivity(), DIYListener {
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
 
-        // Retrieving and storing a reference to the MainApp object (for future use!)
+        // Retrieving and storing a reference to the MainApp object
         app = application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
 //        binding.recyclerView.adapter = DIYAdapter(app.tasks)
         binding.recyclerView.adapter = DIYAdapter(app.tasks.findAll(),this)
+
+        registerRefreshCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -46,7 +51,7 @@ class DIYListActivity : AppCompatActivity(), DIYListener {
             R.id.item_add -> {
                 // expose intent to permit activity to be launched
                 val launcherIntent = Intent(this, DIYActivity::class.java)
-                startActivityForResult(launcherIntent,0)
+                refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -56,13 +61,13 @@ class DIYListActivity : AppCompatActivity(), DIYListener {
         val launcherIntent = Intent(this, DIYActivity::class.java)
         // passing the task to the actvity, enabled via the parcelable mechanism
         launcherIntent.putExtra("task_edit", task)
-        startActivityForResult(launcherIntent,0)
+        refreshIntentLauncher.launch(launcherIntent)
     }
 
-    // This is another lifecycle event. This func is triggered when an activity
-    // we have started finishes.
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-        super.onActivityResult(requestCode, resultCode, data)
+    // Register the callback
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { binding.recyclerView.adapter?.notifyDataSetChanged() }
     }
 }

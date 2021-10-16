@@ -7,6 +7,10 @@
     <string name="hint_taskTitle">DIY Title</string>
     <string name="hint_taskDescription">Description</string>
     <string name="save_task"> Save Task</string>
+
+    <!-- Image Strings -->
     <string name="button_addImage"> Add Image </string>
     <string name="select_task_image">Select task image</string>
+    <string name="change_task_image">Change placemark image</string>
+
 </resources>

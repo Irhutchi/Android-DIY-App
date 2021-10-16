@@ -7,6 +7,7 @@ package ie.wit.doityourself.main
 
 import android.app.Application
 import ie.wit.doityourself.models.DIYMemStore
+import ie.wit.doityourself.models.DIYModel
 import timber.log.Timber
 import timber.log.Timber.i
 
@@ -20,8 +21,8 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("DIY App started")
-//        tasks.add(DIYModel("One", "About one..."))
-//        tasks.add(DIYModel("Two", "About two..."))
-//        tasks.add(DIYModel("Three", "About three..."))
+        tasks.create(DIYModel(0, "TODO one...", "About One"))
+        tasks.create(DIYModel(1, "TODO two...", "About Three"))
+        tasks.create(DIYModel(2, "TODO three...", "About Three"))
     }
 }

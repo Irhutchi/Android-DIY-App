@@ -28,6 +28,7 @@ class DIYMemStore: DIYStore {
         if (foundTask != null) {
             foundTask.title = task.title
             foundTask.description = task.description
+            foundTask.image = task.image
             logAll()
         }
     }

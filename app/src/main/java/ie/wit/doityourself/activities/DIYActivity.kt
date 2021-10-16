@@ -1,6 +1,7 @@
 package ie.wit.doityourself.activities
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -51,6 +52,9 @@ class DIYActivity : AppCompatActivity() {
             Picasso.get()
                 .load(task.image)
                 .into(binding.taskImage)
+            if (task.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_task_image)
+            }
         }
 
         binding.btnAdd.setOnClickListener {
@@ -104,10 +108,13 @@ class DIYActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(task.image)
                                 .into(binding.taskImage)
-                        } // end of if
+                            // when an image is changed, also change the label
+                            binding.chooseImage.setText(R.string.change_task_image)
+                        }
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }
             }
     }
+
 }

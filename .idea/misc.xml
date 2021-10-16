@@ -3,12 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/dev/DoItYourself/app/src/main/res/drawable/ic_more.xml" value="0.22280701754385965" />
         <entry key="..\:/dev/DoItYourself/app/src/main/res/layout/activity_diy.xml" value="0.2" />
         <entry key="..\:/dev/DoItYourself/app/src/main/res/layout/activity_diy_list.xml" value="0.2" />
         <entry key="..\:/dev/DoItYourself/app/src/main/res/layout/activity_main.xml" value="0.1403985507246377" />
-        <entry key="..\:/dev/DoItYourself/app/src/main/res/layout/card_diytask.xml" value="0.2" />
+        <entry key="..\:/dev/DoItYourself/app/src/main/res/layout/card_diytask.xml" value="0.6" />
+        <entry key="..\:/dev/DoItYourself/app/src/main/res/layout/login_form.xml" value="0.536" />
+        <entry key="..\:/dev/DoItYourself/app/src/main/res/layout/login_success.xml" value="0.25877192982456143" />
         <entry key="..\:/dev/DoItYourself/app/src/main/res/layout/menu_main.xml" value="0.21403508771929824" />
+        <entry key="..\:/dev/DoItYourself/app/src/main/res/layout/temp.xml" value="0.33728070175438596" />
         <entry key="..\:/dev/DoItYourself/app/src/main/res/menu/menu_diytask.xml" value="0.19298245614035087" />
+        <entry key="..\:/dev/DoItYourself/app/src/main/res/menu/menu_main.xml" value="0.20657894736842106" />
+        <entry key="..\:/dev/DoItYourself/app/src/main/res/menu/show_menu.xml" value="0.20657894736842106" />
+        <entry key="..\:/dev/DoItYourself/app/src/main/res/mipmap-anydpi-v26/ic_more.xml.xml" value="0.22280701754385965" />
       </map>
     </option>
   </component>
