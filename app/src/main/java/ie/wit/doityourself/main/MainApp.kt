@@ -15,14 +15,16 @@ import timber.log.Timber.i
 class MainApp : Application() {
 
     //val tasks = ArrayList<DIYModel>()
-    val tasks = DIYMemStore()
+    //val tasks = DIYMemStore()
+    lateinit var diyStore: DIYMemStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
+        diyStore = DIYMemStore()
         i("DIY App started")
-        tasks.create(DIYModel(0, "TODO one...", "About One"))
-        tasks.create(DIYModel(1, "TODO two...", "About Three"))
-        tasks.create(DIYModel(2, "TODO three...", "About Three"))
+//        tasks.create(DIYModel(0, "TODO one...", "About One"))
+//        tasks.create(DIYModel(1, "TODO two...", "About Three"))
+//        tasks.create(DIYModel(2, "TODO three...", "About Three"))
     }
 }

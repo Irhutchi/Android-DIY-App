@@ -39,8 +39,10 @@ class DIYAdapter constructor(private var tasks: List<DIYModel>,
         fun bind(task: DIYModel, listener: DIYListener) {
             binding.taskTitle.text = task.title
             binding.description.text = task.description
+            binding.rgRating.text = task.rating
             Picasso.get().load(task.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onDIYClick(task) }
+
         }
     }
 }

@@ -30,12 +30,12 @@ class DIYListActivity : AppCompatActivity(), DIYListener {
         setSupportActionBar(binding.toolbar)
 
         // Retrieving and storing a reference to the MainApp object
-        app = application as MainApp
+        app = this.application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
 //        binding.recyclerView.adapter = DIYAdapter(app.tasks)
-        binding.recyclerView.adapter = DIYAdapter(app.tasks.findAll(),this)
+        binding.recyclerView.adapter = DIYAdapter(app.diyStore.findAll(),this)
 
         registerRefreshCallback()
     }

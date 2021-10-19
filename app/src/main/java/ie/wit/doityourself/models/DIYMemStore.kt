@@ -1,5 +1,6 @@
 package ie.wit.doityourself.models
 
+import timber.log.Timber
 import timber.log.Timber.i
 
 var lastId = 0L
@@ -34,6 +35,7 @@ class DIYMemStore: DIYStore {
     }
 
     fun logAll() {
+        Timber.v("** DIY List **")
         tasks.forEach{ i("${it}")}
     }
 }

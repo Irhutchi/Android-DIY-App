@@ -7,10 +7,19 @@
     <string name="hint_taskTitle">DIY Title</string>
     <string name="hint_taskDescription">Description</string>
     <string name="save_task"> Save Task</string>
+    <string name="button_addRating">Add DIY Task</string>
 
     <!-- Image Strings -->
     <string name="button_addImage"> Add Image </string>
     <string name="select_task_image">Select task image</string>
     <string name="change_task_image">Change placemark image</string>
+
+    <!-- Radio Button Strings -->
+    <string name="easy">Easy</string>
+    <string name="hard">Hard</string>
+    <string name="very_hard">Very Hard</string>
+
+
+
 
 </resources>

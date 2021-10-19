@@ -7,4 +7,5 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/menu_addTask"
         app:showAsAction="always" />
+
 </menu>

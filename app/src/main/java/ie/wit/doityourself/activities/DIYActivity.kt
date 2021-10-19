@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.RadioButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
@@ -40,7 +41,7 @@ class DIYActivity : AppCompatActivity() {
 
         registerImagePickerCallback()   // initialise the image picker callback func.
 
-        app = application as MainApp    // initialise mainApp (2)
+        app = this.application as MainApp    // initialise mainApp (2)
         i("DIY Activity started...")
 
         if(intent.hasExtra("task_edit")) {
@@ -60,15 +61,30 @@ class DIYActivity : AppCompatActivity() {
         binding.btnAdd.setOnClickListener {
             task.title = binding.taskTitle.text.toString()
             task.description = binding.description.text.toString()
+
+            val rgRating: String = if (binding.rgRating.checkedRadioButtonId == R.id.easyBtn) {
+                "Easy"
+            } else if(binding.rgRating.checkedRadioButtonId == R.id.hardBtn) {
+                "Hard"
+            } else "Very Hard"
+            task.rating = binding.rgRating.toString()
+            //app.diyStore.create(DIYModel(rating = rgRating))
+            i("Difficulty Rating $rgRating")
+
+//            val checkedRatingButtonId = binding.rgRating.checkedRadioButtonId
+//            val rating = findViewById<RadioButton>(checkedRatingButtonId)
+//            task.rating = binding.rgRating.toString()
+
+
             if(task.title.isEmpty()) {
                 Snackbar
                     .make(it, R.string.enter_diyTask_title, Snackbar.LENGTH_LONG)
                     .show()
             } else {
                 if (edit) {
-                    app.tasks.update(task.copy())
+                    app.diyStore.update(task.copy())
                 } else {
-                    app.tasks.create(task.copy()) // use mainApp (3)
+                    app.diyStore.create(task.copy()) // use mainApp (3)
                     i("add Button Pressed: $task.title")
                 }
                 setResult(RESULT_OK)
