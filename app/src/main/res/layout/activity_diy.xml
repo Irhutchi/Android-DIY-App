@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context="ie.wit.doityourself.activities.DIYActivity">
 
     <RelativeLayout
@@ -90,18 +89,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
+                        android:padding="8dp"
                         android:text="@string/easy" />
 
                     <RadioButton
                         android:id="@+id/hardBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="8dp"
                         android:text="@string/hard" />
 
                     <RadioButton
                         android:id="@+id/veryHardBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="8dp"
                         android:text="@string/very_hard" />
                 </RadioGroup>
 
@@ -135,6 +137,25 @@
                     android:text="@string/button_addTask"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
+
+                <ImageButton
+                    android:id="@+id/deleteTaskbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#FF0000"
+                    app:srcCompat="@android:drawable/btn_dialog" />
+
+                <TextView
+                    android:id="@+id/DeleteTaskText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:text="Delete Task"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="18sp" />
+
 
             </LinearLayout>
         </ScrollView>

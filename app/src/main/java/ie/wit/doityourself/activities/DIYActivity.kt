@@ -98,7 +98,15 @@ class DIYActivity : AppCompatActivity() {
             showImagePicker(imageIntentLauncher)    // trigger the image picker
         }
 
+        binding.deleteTaskbtn.setOnClickListener() {
+            i("delete task button pressed")
+            app.tasks.delete(task)
+            setResult(RESULT_OK)
+            finish()
+        }
+
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_diytask, menu)

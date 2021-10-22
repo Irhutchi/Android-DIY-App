@@ -6,6 +6,7 @@ import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import ie.wit.doityourself.helpers.*
 import timber.log.Timber
+import timber.log.Timber.i
 import java.lang.reflect.Type
 import java.util.*
 
@@ -54,6 +55,15 @@ class DIYJSONStore(private val context: Context) : DIYStore {
             foundTask.image = task.image
         }
         serialize()
+    }
+
+    override fun delete(task: DIYModel) {
+        val tasksList = findAll() as ArrayList<DIYModel>
+        var foundTask: DIYModel? = tasksList.find { t -> t.id == task.id }
+        if (foundTask != null) {
+            tasks.remove(task)
+            i("Task: ${tasks} removed")
+        }
     }
 
     private fun serialize() {

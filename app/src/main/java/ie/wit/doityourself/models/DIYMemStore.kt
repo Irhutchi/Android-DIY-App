@@ -35,6 +35,16 @@ class DIYMemStore: DIYStore {
         }
     }
 
+    override fun delete(task: DIYModel) {
+        val tasksList = findAll() as java.util.ArrayList<DIYModel>
+        var foundTask: DIYModel? = tasksList.find { t -> t.id == task.id }
+        if (foundTask != null) {
+            tasks.remove(task)
+            i("Task: ${tasks} removed")
+            logAll()
+        }
+    }
+
     fun logAll() {
         Timber.v("** DIY List **")
         tasks.forEach{ i("${it}")}
