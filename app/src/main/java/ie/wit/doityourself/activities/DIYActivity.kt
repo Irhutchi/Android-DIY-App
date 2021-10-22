@@ -67,8 +67,9 @@ class DIYActivity : AppCompatActivity() {
             } else if(binding.rgRating.checkedRadioButtonId == R.id.hardBtn) {
                 "Hard"
             } else "Very Hard"
-            task.rating = binding.rgRating.toString()
-            //app.diyStore.create(DIYModel(rating = rgRating))
+            task.rating = rgRating
+            //task.rating = binding.rgRating.toString()
+//            app.diyStore.create(DIYModel(rating = rgRating))
             i("Difficulty Rating $rgRating")
 
 //            val checkedRatingButtonId = binding.rgRating.checkedRadioButtonId
@@ -82,9 +83,9 @@ class DIYActivity : AppCompatActivity() {
                     .show()
             } else {
                 if (edit) {
-                    app.diyStore.update(task.copy())
+                    app.tasks.update(task.copy())
                 } else {
-                    app.diyStore.create(task.copy()) // use mainApp (3)
+                    app.tasks.create(task.copy()) // use mainApp (3)
                     i("add Button Pressed: $task.title")
                 }
                 setResult(RESULT_OK)

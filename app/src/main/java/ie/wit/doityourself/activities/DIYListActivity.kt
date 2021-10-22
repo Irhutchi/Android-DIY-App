@@ -35,7 +35,7 @@ class DIYListActivity : AppCompatActivity(), DIYListener {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
 //        binding.recyclerView.adapter = DIYAdapter(app.tasks)
-        binding.recyclerView.adapter = DIYAdapter(app.diyStore.findAll(),this)
+        binding.recyclerView.adapter = DIYAdapter(app.tasks.findAll(),this)
 
         registerRefreshCallback()
     }

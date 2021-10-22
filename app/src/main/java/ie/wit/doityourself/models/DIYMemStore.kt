@@ -24,11 +24,12 @@ class DIYMemStore: DIYStore {
         logAll()
     }
 
-    fun update(task: DIYModel) {
+    override fun update(task: DIYModel) {
         var foundTask: DIYModel? = tasks.find { t -> t.id == task.id }
         if (foundTask != null) {
             foundTask.title = task.title
             foundTask.description = task.description
+            foundTask.rating = task.rating
             foundTask.image = task.image
             logAll()
         }
