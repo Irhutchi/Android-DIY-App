@@ -138,24 +138,6 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
 
-                <ImageButton
-                    android:id="@+id/deleteTaskbtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="#FF0000"
-                    app:srcCompat="@android:drawable/btn_dialog" />
-
-                <TextView
-                    android:id="@+id/DeleteTaskText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="8dp"
-                    android:text="Delete Task"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="18sp" />
-
 
             </LinearLayout>
         </ScrollView>

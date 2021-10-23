@@ -64,6 +64,7 @@ class DIYJSONStore(private val context: Context) : DIYStore {
             tasks.remove(task)
             i("Task: ${tasks} removed")
         }
+        serialize()
     }
 
     private fun serialize() {
@@ -89,7 +90,7 @@ class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
     ): Uri {
         return Uri.parse(json?.asString)
     }
-
+    // Utility to format a java class (pretty printing it)
     override fun serialize(
         src: Uri?,
         typeOfSrc: Type?,

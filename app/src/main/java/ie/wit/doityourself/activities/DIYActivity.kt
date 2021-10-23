@@ -27,10 +27,10 @@ class DIYActivity : AppCompatActivity() {
     var task = DIYModel()
     lateinit var app: MainApp // ref to mainApp object (1)
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
-
+    var edit = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var edit = false
+        //var edit = true
 
         //inflate layout using binding class
         binding = ActivityDiyBinding.inflate(layoutInflater)
@@ -98,24 +98,24 @@ class DIYActivity : AppCompatActivity() {
             showImagePicker(imageIntentLauncher)    // trigger the image picker
         }
 
-        binding.deleteTaskbtn.setOnClickListener() {
-            i("delete task button pressed")
-            app.tasks.delete(task)
-            setResult(RESULT_OK)
-            finish()
-        }
-
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_diytask, menu)
+        if (edit && menu != null) menu.getItem(1).setVisible(true)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_cancel -> { finish() }
+            R.id.item_cancel -> { finish()
+                i("Edit task aborted")}
+            R.id.item_delete -> {
+                app.tasks.delete(task)
+                finish()
+                i("delete task button pressed")
+            }
         }
         return super.onOptionsItemSelected(item)
     }
