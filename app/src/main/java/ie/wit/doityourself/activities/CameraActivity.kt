@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.util.Log.i
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
@@ -21,6 +20,8 @@ import java.io.File
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class CameraActivity : AppCompatActivity() {
 
@@ -30,6 +31,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
     private var imageCapture:ImageCapture?=null
     private lateinit var outputDirectory: File
+    private lateinit var cameraExecutor:ExecutorService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,9 @@ class CameraActivity : AppCompatActivity() {
         app = this.application as MainApp
 
         outputDirectory = getOutputDirectory()
+        cameraExecutor = Executors.newSingleThreadExecutor()
 
+        // Request camera permissions
         if (allPermissionGranted()) {
             startCamera()
             Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
@@ -50,7 +54,7 @@ class CameraActivity : AppCompatActivity() {
                 Constants.REQUEST_CODE_PERMISSIONS
             )
         }
-
+        // Set up the listener for take photo button
         binding.btnTakePhoto.setOnClickListener {
             takePhoto()
         }
@@ -94,9 +98,8 @@ class CameraActivity : AppCompatActivity() {
                     ).show()
 
                 }
-
                 override fun onError(exception: ImageCaptureException) {
-                    Log.e(Constants.TAG,
+                    i(Constants.TAG,
                         "onError: ${exception.message}",
                         exception)
                 }
@@ -169,6 +172,10 @@ class CameraActivity : AppCompatActivity() {
             ) == PackageManager.PERMISSION_GRANTED
         }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        // Shutdown method will allow previously submitted tasks to execute before terminating
+        cameraExecutor.shutdown()
+    }
 
 }
