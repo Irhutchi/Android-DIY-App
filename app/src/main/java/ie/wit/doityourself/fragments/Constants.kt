@@ -1,4 +1,4 @@
-package ie.wit.doityourself.activities
+package ie.wit.doityourself.fragments
 
 import android.Manifest
 

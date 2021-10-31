@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/diyMainFragment"
+            android:icon="@drawable/ic_menu_new"
+            android:title="@string/action_diy" />
+        <item
+            android:id="@+id/diyListFragment"
+            android:icon="@drawable/ic_menu_list"
+            android:title="@string/action_diyList" />
+        <item
+            android:id="@+id/cameraFragment"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/action_camera" />
+    </group>
+
+    <item android:title="@string/group_access">
+        <menu>
+            <item
+                android:id="@+id/splashFragment"
+                android:icon="@drawable/ic_menu_login"
+                android:title="@string/action_login" />
+            <item
+                android:id="@+id/home"
+                android:icon="@drawable/ic_menu_register"
+                android:title="@string/action_register" />
+        </menu>
+    </item>
+
+    <item android:title="@string/group_communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/action_share" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_launcher_about"
+                android:title="@string/action_about" />
+        </menu>
+    </item>
+</menu>

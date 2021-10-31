@@ -1,11 +1,11 @@
 package ie.wit.doityourself.adapters
 
 import android.view.LayoutInflater
-import android.view.OnReceiveContentListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ie.wit.doityourself.databinding.CardDiytaskBinding
+import ie.wit.doityourself.fragments.DiyListFragment
 import ie.wit.doityourself.models.DIYModel
 
 // interface will represent click events on the task Card.
@@ -14,8 +14,9 @@ interface DIYListener {
 }
 
 // Adapter - accepts and installs an event handler based on the interface
-class DIYAdapter constructor(private var tasks: List<DIYModel>,
-                             private val listener: DIYListener) :
+class DIYAdapter(private var tasks: List<DIYModel>,
+                 private val listener: DiyListFragment
+) :
     RecyclerView.Adapter<DIYAdapter.MainHolder>() {
 
 

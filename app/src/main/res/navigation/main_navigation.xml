@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/diyListFragment">
+    <fragment
+        android:id="@+id/diyListFragment"
+        android:name="ie.wit.doityourself.fragments.DiyListFragment"
+        android:label="Task List"
+        tools:layout="@layout/fragment_diy_list" >
+        <action
+            android:id="@+id/action_diyListFragment_to_diyFragment"
+            app:destination="@id/diyFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/diyFragment"
+        android:name="ie.wit.doityourself.fragments.DiyFragment"
+        android:label="Do It Yourself"
+        tools:layout="@layout/fragment_diy" >
+        <action
+            android:id="@+id/action_diyFragment_to_diyListFragment"
+            app:destination="@id/diyListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_diyFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="ie.wit.doityourself.fragments.CameraFragment"
+        android:label="Take Photo"
+        tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/action_cameraFragment_to_diyFragment"
+            app:destination="@id/diyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutusFragment"
+        android:name="ie.wit.doityourself.fragments.AboutUsFragment"
+        android:label="Take Photo"
+        tools:layout="@layout/fragment_aboutus" />
+</navigation>
