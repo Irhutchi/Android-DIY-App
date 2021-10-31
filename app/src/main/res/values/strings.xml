@@ -1,3 +1,57 @@
 <resources>
     <string name="app_name">Do It Yourself</string>
+    <string name="menu_addTask">Add</string>
+    <string name="menu_cancelTask">Cancel</string>
+    <string name="button_addTask">Add DIY Task</string>
+    <string name="menu_deleteTask">Delete</string>
+    <string name="enter_diyTask_title">Please enter a task title</string>
+    <string name="hint_taskTitle">DIY Title</string>
+    <string name="hint_taskDescription">Description</string>
+    <string name="save_task"> Save Task</string>
+    <string name="button_addRating">Add DIY Task</string>
+
+    <!-- Image Strings -->
+    <string name="button_addImage"> Add Image </string>
+    <string name="select_task_image">Select task image</string>
+    <string name="change_task_image">Change task image</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="button_takePhoto">Camera</string>
+
+    <!-- Radio Button Strings -->
+    <string name="easy">Easy</string>
+    <string name="hard">Hard</string>
+    <string name="very_hard">Very Hard</string>
+
+    <string name="btnTakePhoto">Take Picture</string>
+    <!-- menu res -->
+    <string name="action_diyList">Task List</string>
+    <string name="action_diy">New Task</string>
+
+    <string name="action_camera">Camera</string>
+    <!-- Nav Drawer Support -->
+    <string name="action_login">Login</string>
+    <string name="action_register">Register</string>
+    <string name="group_access">Account</string>
+
+    <!--    -->
+    <string name="action_share">Share</string>
+    <string name="action_send">Send</string>
+    <string name="group_communicate">Communicate</string>
+
+    <!-- Nav Drawer About -->
+    <string name="action_about">About Us</string>
+    <string name="aboutus_title">Android Dev - Assignment One - Ian H</string>
+    <string name="aboutus_message">When it comes to DIY (Do It Yourself) it is easy to say you\'ll
+        get round to but never do. With this app at your disposal, you can manage all those many
+        unique ideas. DIY as the name says it encourages one to use their own hands and handcraft
+        them. Whether it is art, cooking, a home makeover or dressing makeover, handmade gifts,
+        holiday decor this is the space for you! Ideas that can help you save on money and transform
+        from boring to fabulous.</string>
+
+    <string name="nav_header_title">DoItYourSelf</string>
+    <string name="nav_header_subtitle">Community of Practical People</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+
+
 </resources>
