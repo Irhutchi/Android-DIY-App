@@ -29,25 +29,30 @@ To run this project yourself: <br>
 The emulator responds by installing and running the application.
 
 
-### UI Design - Sample Views
+## UI Design - Sample Views
 
-**Splash Screen**
-![](/app/src/images/splash_screen.PNG)
+**Splash Screen** <br>
+<img src="/app/src/images/splash_screen.PNG" width="200" height="325" />
 <br>
-**Persistent Storage**
-![](/app/src/images/json.png)
+**Persistent Storage** <br>
+<img src="/app/src/images/json.png" width="750" height="475" />
 <br>
-**Navigation Drawer**
-![](/app/src/images/nav_drawer.png)
 <br>
-**Toolbar Menu**
-![](/app/src/images/nav_menu.png)
+**Navigation Drawer** <br>
+<img src="/app/src/images/nav_drawer.png" width="200" height="325" />
 <br>
-**Camera Permission**
-![](/app/src/images/camera_permissions.png)
 <br>
-**Camera Fragment**
-![](/app/src/images/camera_fragment.png)
+**Toolbar Menu** <br>
+<img src="/app/src/images/nav_menu.png" width="200" height="325" />
+<br>
+<br>
+**Camera Permission** <br>
+<img src="/app/src/images/camera_permissions.png" width="200" height="325" />
+<br>
+<br>
+**Camera Fragment** <br>
+<img src="/app/src/images/camera_fragment.png" width="200" height="325" />
+<br>
 
 
 ## References
