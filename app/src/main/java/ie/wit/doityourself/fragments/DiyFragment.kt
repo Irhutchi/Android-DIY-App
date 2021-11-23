@@ -1,5 +1,6 @@
 package ie.wit.doityourself.fragments
 
+
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.squareup.picasso.Picasso
 import ie.wit.doityourself.R
@@ -31,25 +33,23 @@ import ie.wit.doityourself.helpers.showImagePicker
  */
 class DiyFragment : Fragment(), View.OnClickListener {
 
-    // ActivityDiyBinding augmented class needed to access diff View
+    // ActivityDiyBinding augmented class needed to access diff View of
     // objects on a particular layout
 
     lateinit var app: MainApp // ref to mainApp object (1)
     private var _fragBinding: FragmentDiyBinding? = null
     private val fragBinding get() = _fragBinding!!
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    lateinit var navController: NavController
     var task = DIYModel()
-    var edit = false
-    var nav2cam: NavController ?= null
-//    var nav2list: NavController ?= null
+    var edit = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         app = activity?.application as MainApp
         Timber.i("DIY Activity started...")
         setHasOptionsMenu(true)
-
+        navController = Navigation.findNavController(requireActivity(),R.id.nav_host_fragment)
         registerImagePickerCallback()   // initialise the image picker callback func.
 
     }
@@ -59,11 +59,11 @@ class DiyFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?,
     ): View? {
         _fragBinding = FragmentDiyBinding.inflate(inflater, container, false)
-        val root = fragBinding.root
+        val view = fragBinding.root
         getString(R.string.action_diy).also { activity?.title = it }
-
-        return root
+        return view
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -101,13 +101,15 @@ class DiyFragment : Fragment(), View.OnClickListener {
                     .show()
             } else {
                 if (edit) {
-                    app.diyStore.update(task.copy())
+                    app.tasks.update(task.copy())
+                    findNavController().navigate(R.id.diyListFragment)
+
                 } else {
-                    app.diyStore.create(task.copy()) // use mainApp (3)
+                    app.tasks.create(task.copy()) // use mainApp (3)
                     Timber.i("add Button Pressed: $task.title")
+                    navController.navigate(R.id.diyListFragment)
                 }
-                getActivity()?.setResult(Activity.RESULT_OK)
-                getActivity()?.finish()
+                navController.navigate(R.id.diyListFragment)
             }
         }
         fragBinding.chooseImage.setOnClickListener {
@@ -115,53 +117,30 @@ class DiyFragment : Fragment(), View.OnClickListener {
             showImagePicker(imageIntentLauncher)    // trigger the image picker
         }
 
-//        nav2list=Navigation.findNavController(view)
-//        view.findViewById<Button>(R.id.btnAdd)?.setOnClickListener(this)
 
-        nav2cam=Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.btnPhoto)?.setOnClickListener(this)
-
-
-//        fragBinding.btnPhoto.setOnClickListener {
-//            Timber.i("Take Photo")
-//            val nextFrag = CameraFragment()
-//            requireActivity().supportFragmentManager.beginTransaction()
-//                .replace(R.id.btnPhoto, nextFrag, "findThisFragment")
-//                .addToBackStack(null)
-//                .commit()
-//        }
+        fragBinding.btnPhoto.setOnClickListener {
+            Timber.i("Take Photo")
+            navController.navigate(R.id.action_diyFragment_to_cameraFragment)
+        }
     }
-
-    override fun onClick(v: View?) {
-        nav2cam?.navigate(R.id.action_diyFragment_to_cameraFragment)
-//        nav2list?.navigate(R.id.action_diyFragment_to_diyListFragment)
-    }
-
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_diytask, menu)
         if (edit) menu.getItem(1).isVisible = true
+//        return super.onCreateOptionsMenu(menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
-
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item,
         requireView().findNavController()) || super.onOptionsItemSelected(item)
-//        when (item.itemId) {
-//            R.id.item_cancel -> { activity?.finish()
-//                Timber.i("Edit task aborted")
-//            }
-//            R.id.item_delete -> {
-//                app.diyStore.delete(task)
-//                activity?.finish()
-//                Timber.i("delete task button pressed")
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
     }
+
+    override fun onClick(v: View?) {
+        navController.navigate(R.id.cameraFragment)
+    }
+
 
 
     companion object {
@@ -175,6 +154,10 @@ class DiyFragment : Fragment(), View.OnClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _fragBinding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
 
@@ -197,8 +180,7 @@ class DiyFragment : Fragment(), View.OnClickListener {
                     }
                     AppCompatActivity.RESULT_CANCELED -> {
                     }
-                    else -> {
-                    }
+                    else -> { }
                 }
             }
     }

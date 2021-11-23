@@ -7,8 +7,8 @@
         android:title="@string/action_diy"
         app:showAsAction="never" />
     <item
-        android:id="@+id/aboutusFragment"
+        android:id="@+id/diyListFragment"
         android:orderInCategory="100"
-        android:title="@string/action_about"
+        android:title="@string/action_diyList"
         app:showAsAction="never" />
 </menu>

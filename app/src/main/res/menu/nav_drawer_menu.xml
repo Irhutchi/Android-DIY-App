@@ -5,7 +5,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/diyMainFragment"
+            android:id="@+id/diyFragment"
             android:icon="@drawable/ic_menu_new"
             android:title="@string/action_diy" />
         <item
@@ -38,7 +38,7 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/action_share" />
             <item
-                android:id="@+id/nav_about"
+                android:id="@+id/aboutusFragment"
                 android:icon="@drawable/ic_launcher_about"
                 android:title="@string/action_about" />
         </menu>

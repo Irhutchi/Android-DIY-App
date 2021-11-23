@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import ie.wit.doityourself.R
 import ie.wit.doityourself.databinding.HomeBinding
 
@@ -29,9 +30,15 @@ class Home : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.diyMainFragment, R.id.diyListFragment,
+            R.id.diyFragment,
+            R.id.diyListFragment,
+            R.id.cameraFragment,
+            R.id.aboutusFragment,
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        val navView = homeBinding.navView
+        navView.setupWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {

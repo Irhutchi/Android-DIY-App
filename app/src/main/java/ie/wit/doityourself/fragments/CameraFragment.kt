@@ -172,7 +172,7 @@ class CameraFragment : Fragment() {
             } catch (err: Exception) {
                 i("startCamera Fail:")
             }
-        }, this@CameraFragment.activity?.let { ContextCompat.getMainExecutor(it) })
+        }, this@CameraFragment.activity?.let { ContextCompat.getMainExecutor(it) } )
     }
 
     override fun onRequestPermissionsResult(

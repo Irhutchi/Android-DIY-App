@@ -21,10 +21,11 @@ class DIYAdapter(private var tasks: List<DIYModel>,
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
+        // initialise view
         val binding = CardDiytaskBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-
-        return MainHolder(binding)
+        // return holder view
+        return MainHolder(binding = binding)
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {

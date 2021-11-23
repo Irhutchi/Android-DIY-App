@@ -16,15 +16,14 @@ import timber.log.Timber.i
 
 class MainApp : Application() {
 
-    lateinit var diyStore: DIYStore
-//    lateinit var tasks: DIYStore
+//    lateinit var diyStore: DIYStore
+    lateinit var tasks: DIYStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        diyStore = DIYMemStore()
 //        diyStore = DIYMemStore()
-//        tasks = DIYJSONStore(applicationContext)
+        tasks = DIYJSONStore(applicationContext)
         i("DIY App started")
     }
 }

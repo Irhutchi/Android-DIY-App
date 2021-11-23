@@ -8,12 +8,21 @@
         android:id="@+id/diyListFragment"
         android:name="ie.wit.doityourself.fragments.DiyListFragment"
         android:label="Task List"
-        tools:layout="@layout/fragment_diy_list" >
+        tools:layout="@layout/fragment_diy_list">
         <action
             android:id="@+id/action_diyListFragment_to_diyFragment"
             app:destination="@id/diyFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/diyFragment"
+            app:popUpToInclusive="false"/>
+
+        <action
+            android:id="@+id/action_diyListFragment_to_aboutusFragment"
+            app:destination="@id/aboutusFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/diyListFragment" />
     </fragment>
     <fragment
         android:id="@+id/diyFragment"
@@ -28,6 +37,12 @@
         <action
             android:id="@+id/action_diyFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
+        <argument
+            android:name="taskadd"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_diyFragment_to_diyListFragment2"
+            app:destination="@id/diyListFragment" />
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"
@@ -41,6 +56,6 @@
     <fragment
         android:id="@+id/aboutusFragment"
         android:name="ie.wit.doityourself.fragments.AboutUsFragment"
-        android:label="Take Photo"
+        android:label="About"
         tools:layout="@layout/fragment_aboutus" />
 </navigation>

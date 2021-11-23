@@ -1,10 +1,10 @@
 package ie.wit.doityourself.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import ie.wit.doityourself.R
 import ie.wit.doityourself.databinding.FragmentAboutusBinding
 import ie.wit.doityourself.main.MainApp
@@ -28,9 +28,21 @@ class AboutUsFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _fragBinding = FragmentAboutusBinding.inflate(inflater, container, false)
-        val root = fragBinding.root
-        activity?.title = getString(R.string.action_about)
-        return root
+        return inflater.inflate(R.layout.fragment_aboutus, container, false)
+//        _fragBinding = FragmentAboutusBinding.inflate(inflater, container, false)
+//        val root = fragBinding.root
+//        activity?.title = getString(R.string.action_about)
+//        return root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.menu_about, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item,
+            requireView().findNavController()) || super.onOptionsItemSelected(item)
     }
 }

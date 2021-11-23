@@ -4,6 +4,7 @@
     <string name="menu_cancelTask">Cancel</string>
     <string name="button_addTask">Add DIY Task</string>
     <string name="menu_deleteTask">Delete</string>
+    <string name="menu_saveTask">Save</string>
     <string name="enter_diyTask_title">Please enter a task title</string>
     <string name="hint_taskTitle">DIY Title</string>
     <string name="hint_taskDescription">Description</string>
@@ -39,6 +40,10 @@
     <string name="group_communicate">Communicate</string>
 
     <!-- Nav Drawer About -->
+    <string name="nav_header_title">DoItYourSelf</string>
+    <string name="nav_header_subtitle">Community of Practical People</string>
+    <string name="nav_header_desc">Navigation header</string>
+
     <string name="action_about">About Us</string>
     <string name="aboutus_title">Android Dev - Assignment One - Ian H</string>
     <string name="aboutus_message">When it comes to DIY (Do It Yourself) it is easy to say you\'ll
@@ -48,9 +53,7 @@
         holiday decor this is the space for you! Ideas that can help you save on money and transform
         from boring to fabulous.</string>
 
-    <string name="nav_header_title">DoItYourSelf</string>
-    <string name="nav_header_subtitle">Community of Practical People</string>
-    <string name="nav_header_desc">Navigation header</string>
+
 
 
 
