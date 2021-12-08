@@ -1,5 +1,6 @@
 package ie.wit.doityourself.models
 
+import androidx.lifecycle.MutableLiveData
 import timber.log.Timber
 import timber.log.Timber.i
 
@@ -10,12 +11,13 @@ internal fun getId(): Long {
 }
 
 
-class DIYMemStore: DIYStore {
+object DIYManager: DIYStore {
 
-    val tasks = ArrayList<DIYModel>()
+    private val tasks = ArrayList<DIYModel>()
 
-    override fun findAll(): List<DIYModel> {
-        return tasks
+    override fun findAll() {
+//        taskList: MutableLiveData<List<DIYModel>>
+//        return tasks
     }
 
     override fun create(task: DIYModel) {
@@ -23,6 +25,12 @@ class DIYMemStore: DIYStore {
         tasks.add(task)
         logAll()
     }
+
+//    override fun create(task: DIYModel) {
+//        task.id = getId()
+//        tasks.add(task)
+//        logAll()
+//    }
 
     override fun update(task: DIYModel) {
         var foundTask: DIYModel? = tasks.find { t -> t.id == task.id }

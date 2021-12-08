@@ -53,6 +53,11 @@
         holiday decor this is the space for you! Ideas that can help you save on money and transform
         from boring to fabulous.</string>
 
+    <!-- list view strings   -->
+    <string name="noTasksFound">Task List Empty...\n Go create some tasks now!</string>
+
+    <string name="createTaskError">Error : Unable to create a new DIY task...</string>
+
 
 
 

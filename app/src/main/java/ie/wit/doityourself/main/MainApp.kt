@@ -6,24 +6,21 @@ package ie.wit.doityourself.main
 */
 
 import android.app.Application
-import ie.wit.doityourself.models.DIYJSONStore
-import ie.wit.doityourself.models.DIYMemStore
-import ie.wit.doityourself.models.DIYModel
-import ie.wit.doityourself.models.DIYStore
+import ie.wit.doityourself.models.DIYManager
 import timber.log.Timber
-import timber.log.Timber.i
 
 
 class MainApp : Application() {
 
 //    lateinit var diyStore: DIYStore
-    lateinit var tasks: DIYStore
+//    lateinit var tasks: DIYStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
+//        diyStore = DIYManager()
 //        diyStore = DIYMemStore()
-        tasks = DIYJSONStore(applicationContext)
-        i("DIY App started")
+//        tasks = DIYJSONStore(applicationContext)
+        Timber.i("DIY App started")
     }
 }

@@ -5,7 +5,7 @@
     android:id="@+id/diyFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.DiyFragment">
+    tools:context=".ui.Diy.DiyFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

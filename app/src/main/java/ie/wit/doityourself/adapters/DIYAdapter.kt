@@ -5,18 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ie.wit.doityourself.databinding.CardDiytaskBinding
-import ie.wit.doityourself.fragments.DiyListFragment
 import ie.wit.doityourself.models.DIYModel
 
 // interface will represent click events on the task Card.
-interface DIYListener {
+interface DIYClickListener {
     fun onDIYClick(task: DIYModel)
 }
 
 // Adapter - accepts and installs an event handler based on the interface
 class DIYAdapter(private var tasks: List<DIYModel>,
-                 private val listener: DiyListFragment
-) :
+                 private val listener: DIYClickListener) :
     RecyclerView.Adapter<DIYAdapter.MainHolder>() {
 
 
@@ -38,7 +36,7 @@ class DIYAdapter(private var tasks: List<DIYModel>,
     class MainHolder(private val binding : CardDiytaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(task: DIYModel, listener: DIYListener) {
+        fun bind(task: DIYModel, listener: DIYClickListener) {
             binding.taskTitle.text = task.title
             binding.description.text = task.description
             binding.rgRating.text = task.rating

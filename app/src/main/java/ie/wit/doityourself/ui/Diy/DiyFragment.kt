@@ -1,18 +1,16 @@
-package ie.wit.doityourself.fragments
+package ie.wit.doityourself.ui.Diy
 
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -24,13 +22,9 @@ import ie.wit.doityourself.models.DIYModel
 import timber.log.Timber
 import com.google.android.material.snackbar.Snackbar
 import ie.wit.doityourself.helpers.showImagePicker
+import androidx.lifecycle.Observer
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DiyFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DiyFragment : Fragment(), View.OnClickListener {
 
     // ActivityDiyBinding augmented class needed to access diff View of
@@ -40,19 +34,22 @@ class DiyFragment : Fragment(), View.OnClickListener {
     private var _fragBinding: FragmentDiyBinding? = null
     private val fragBinding get() = _fragBinding!!
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
-    lateinit var navController: NavController
+//    lateinit var navController: NavController
+    private lateinit var diyViewModel: DiyViewModel
     var task = DIYModel()
+
     var edit = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        app = activity?.application as MainApp
-        Timber.i("DIY Activity started...")
+//        app = activity?.application as MainApp
+//        Timber.i("DIY Activity started...")
         setHasOptionsMenu(true)
-        navController = Navigation.findNavController(requireActivity(),R.id.nav_host_fragment)
-        registerImagePickerCallback()   // initialise the image picker callback func.
+//        navController = Navigation.findNavController(requireActivity(),R.id.nav_host_fragment)
+//        registerImagePickerCallback()   // initialise the image picker callback func.
 
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,13 +58,13 @@ class DiyFragment : Fragment(), View.OnClickListener {
         _fragBinding = FragmentDiyBinding.inflate(inflater, container, false)
         val view = fragBinding.root
         getString(R.string.action_diy).also { activity?.title = it }
-        return view
-    }
 
+        diyViewModel = ViewModelProvider(this).get(DiyViewModel::class.java)
+        diyViewModel.observableStatus.observe(viewLifecycleOwner, Observer { status ->
+            status?.let { render(status) }
+        })
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+//        val editTask = activity?.intent!!.extras!!.getString("task_edit")
         if (activity?.intent!!.hasExtra("task_edit")) {
             edit = true
             task = activity?.intent!!.extras?.getParcelable("task_edit")!!
@@ -101,15 +98,16 @@ class DiyFragment : Fragment(), View.OnClickListener {
                     .show()
             } else {
                 if (edit) {
-                    app.tasks.update(task.copy())
+//                    app.tasks.update(task.copy())
                     findNavController().navigate(R.id.diyListFragment)
 
                 } else {
-                    app.tasks.create(task.copy()) // use mainApp (3)
+                    task.copy()
+//                    app.tasks.create(task.copy()) // use mainApp (3)
                     Timber.i("add Button Pressed: $task.title")
-                    navController.navigate(R.id.diyListFragment)
+//                    navController.navigate(R.id.diyListFragment)
                 }
-                navController.navigate(R.id.diyListFragment)
+//                navController.navigate(R.id.diyListFragment)
             }
         }
         fragBinding.chooseImage.setOnClickListener {
@@ -117,13 +115,24 @@ class DiyFragment : Fragment(), View.OnClickListener {
             showImagePicker(imageIntentLauncher)    // trigger the image picker
         }
 
-
         fragBinding.btnPhoto.setOnClickListener {
             Timber.i("Take Photo")
-            navController.navigate(R.id.action_diyFragment_to_cameraFragment)
+//            navController.navigate(R.id.action_diyFragment_to_cameraFragment)
         }
+        return view
     }
 
+    private fun render(status: Boolean) {
+        when (status) {
+            true -> {
+                view?.let {
+                    //Uncomment this if you want to immediately return to task list
+                    //findNavController().popBackStack()
+                }
+            }
+            false -> Toast.makeText(context,getString(R.string.createTaskError), Toast.LENGTH_LONG).show()
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_diytask, menu)
@@ -138,7 +147,7 @@ class DiyFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        navController.navigate(R.id.cameraFragment)
+        findNavController().navigate(R.id.cameraFragment)
     }
 
 

@@ -6,7 +6,7 @@
     app:startDestination="@id/diyListFragment">
     <fragment
         android:id="@+id/diyListFragment"
-        android:name="ie.wit.doityourself.fragments.DiyListFragment"
+        android:name="ie.wit.doityourself.ui.List.DiyListFragment"
         android:label="Task List"
         tools:layout="@layout/fragment_diy_list">
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/diyFragment"
-        android:name="ie.wit.doityourself.fragments.DiyFragment"
+        android:name="ie.wit.doityourself.ui.Diy.DiyFragment"
         android:label="Do It Yourself"
         tools:layout="@layout/fragment_diy" >
         <action
