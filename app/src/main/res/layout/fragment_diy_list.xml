@@ -6,7 +6,7 @@
     android:id="@+id/diyListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.List.DiyListFragment">
+    tools:context=".ui.list.DiyListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

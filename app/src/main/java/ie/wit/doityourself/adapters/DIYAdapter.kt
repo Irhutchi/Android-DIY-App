@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import ie.wit.doityourself.R
 import ie.wit.doityourself.databinding.CardDiytaskBinding
 import ie.wit.doityourself.models.DIYModel
 
@@ -17,13 +18,10 @@ class DIYAdapter(private var tasks: List<DIYModel>,
                  private val listener: DIYClickListener) :
     RecyclerView.Adapter<DIYAdapter.MainHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        // initialise view
-        val binding = CardDiytaskBinding
+        val binding = CardDiytaskBinding    // initialise view
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        // return holder view
-        return MainHolder(binding = binding)
+        return MainHolder(binding = binding)    // return holder view
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
@@ -33,16 +31,16 @@ class DIYAdapter(private var tasks: List<DIYModel>,
 
     override fun getItemCount(): Int = tasks.size
 
-    class MainHolder(private val binding : CardDiytaskBinding) :
+    inner class MainHolder(val binding : CardDiytaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(task: DIYModel, listener: DIYClickListener) {
-            binding.taskTitle.text = task.title
-            binding.description.text = task.description
-            binding.rgRating.text = task.rating
-            Picasso.get().load(task.image).resize(200,200).into(binding.imageIcon)
+            // update task data element with the individual task that is passed to main holder class
+            binding.root.tag = task.id
+            binding.task = task
+            binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
             binding.root.setOnClickListener { listener.onDIYClick(task) }
-
+            binding.executePendingBindings() // force bindings to happen immediately
         }
     }
 }

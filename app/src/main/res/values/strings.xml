@@ -5,11 +5,15 @@
     <string name="button_addTask">Add DIY Task</string>
     <string name="menu_deleteTask">Delete</string>
     <string name="menu_saveTask">Save</string>
+    <string name="deleteTask">Delete</string>
     <string name="enter_diyTask_title">Please enter a task title</string>
     <string name="hint_taskTitle">DIY Title</string>
     <string name="hint_taskDescription">Description</string>
-    <string name="save_task"> Save Task</string>
+    <string name="save_task">Update</string>
     <string name="button_addRating">Add DIY Task</string>
+    <string name="edit_diy">Edit Diy Task</string>
+
+
 
     <!-- Image Strings -->
     <string name="button_addImage"> Add Image </string>
@@ -27,14 +31,13 @@
     <!-- menu res -->
     <string name="action_diyList">Task List</string>
     <string name="action_diy">New Task</string>
-
     <string name="action_camera">Camera</string>
-    <!-- Nav Drawer Support -->
+    <!-- Nav Drawer access -->
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
     <string name="group_access">Account</string>
 
-    <!--    -->
+    <!-- Nav Drawer support -->
     <string name="action_share">Share</string>
     <string name="action_send">Send</string>
     <string name="group_communicate">Communicate</string>

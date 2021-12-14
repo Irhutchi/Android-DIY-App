@@ -1,4 +1,4 @@
-package ie.wit.doityourself.activities
+package ie.wit.doityourself.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,6 +31,7 @@ class Home : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration = AppBarConfiguration(setOf(
             R.id.diyFragment,
+            R.id.diyEditFragment,
             R.id.diyListFragment,
             R.id.cameraFragment,
             R.id.aboutusFragment,
