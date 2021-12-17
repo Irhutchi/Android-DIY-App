@@ -6,16 +6,14 @@
     app:startDestination="@id/diyListFragment">
     <fragment
         android:id="@+id/diyListFragment"
-        android:name="ie.wit.doityourself.fragments.DiyListFragment"
+        android:name="ie.wit.doityourself.ui.list.DiyListFragment"
         android:label="Task List"
         tools:layout="@layout/fragment_diy_list">
         <action
             android:id="@+id/action_diyListFragment_to_diyFragment"
             app:destination="@id/diyFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popUpTo="@id/diyFragment"
-            app:popUpToInclusive="false"/>
+            app:exitAnim="@anim/nav_default_exit_anim"/>
 
         <action
             android:id="@+id/action_diyListFragment_to_aboutusFragment"
@@ -23,10 +21,13 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popUpTo="@id/diyListFragment" />
+        <action
+            android:id="@+id/action_diyListFragment_to_diyEditFragment"
+            app:destination="@id/diyEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/diyFragment"
-        android:name="ie.wit.doityourself.fragments.DiyFragment"
+        android:name="ie.wit.doityourself.ui.diy.DiyFragment"
         android:label="Do It Yourself"
         tools:layout="@layout/fragment_diy" >
         <action
@@ -37,16 +38,10 @@
         <action
             android:id="@+id/action_diyFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
-        <argument
-            android:name="taskadd"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_diyFragment_to_diyListFragment2"
-            app:destination="@id/diyListFragment" />
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="ie.wit.doityourself.fragments.CameraFragment"
+        android:name="ie.wit.doityourself.ui.camera.CameraFragment"
         android:label="Take Photo"
         tools:layout="@layout/fragment_camera" >
         <action
@@ -55,7 +50,19 @@
     </fragment>
     <fragment
         android:id="@+id/aboutusFragment"
-        android:name="ie.wit.doityourself.fragments.AboutUsFragment"
+        android:name="ie.wit.doityourself.ui.about.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_aboutus" />
+    <fragment
+        android:id="@+id/diyEditFragment"
+        android:name="ie.wit.doityourself.DiyEditFragment"
+        android:label="diy_edit_fragment"
+        tools:layout="@layout/diy_edit_fragment" >
+        <action
+            android:id="@+id/action_diyEditFragment_to_diyListFragment"
+            app:destination="@id/diyListFragment" />
+        <argument
+            android:name="taskid"
+            app:argType="long" />
+    </fragment>
 </navigation>

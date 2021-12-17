@@ -10,12 +10,17 @@ internal fun getId(): Long {
 }
 
 
-class DIYMemStore: DIYStore {
+object DIYManager: DIYStore {
 
-    val tasks = ArrayList<DIYModel>()
+    private val tasks = ArrayList<DIYModel>()
 
     override fun findAll(): List<DIYModel> {
+//        taskList: MutableLiveData<List<DIYModel>>
         return tasks
+    }
+
+    override fun findById(id: Long): DIYModel? {
+        return tasks.find { it.id == id }
     }
 
     override fun create(task: DIYModel) {
@@ -50,3 +55,4 @@ class DIYMemStore: DIYStore {
         tasks.forEach{ i("${it}")}
     }
 }
+

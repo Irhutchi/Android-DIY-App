@@ -5,7 +5,7 @@
     android:id="@+id/cameraFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CameraFragment">
+    tools:context=".ui.camera.CameraFragment">
 
     <Button
         android:id="@+id/btnTakePhoto"

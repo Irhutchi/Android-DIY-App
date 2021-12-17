@@ -33,9 +33,13 @@ class DIYJSONStore(private val context: Context) : DIYStore {
         }
     }
 
-    override fun findAll(): MutableList<DIYModel> {
+    override fun findAll(): List<DIYModel> {
         logAll()
         return tasks
+    }
+
+    override fun findById(id: Long): DIYModel? {
+        TODO("Not yet implemented")
     }
 
     override fun create(task: DIYModel) {

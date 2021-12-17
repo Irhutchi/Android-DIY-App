@@ -1,4 +1,4 @@
-package ie.wit.doityourself.fragments
+package ie.wit.doityourself.ui.camera
 
 import android.content.pm.PackageManager
 import android.net.Uri
