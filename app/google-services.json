@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "476130475633",
+    "project_id": "hdip-diy-kotlin",
+    "storage_bucket": "hdip-diy-kotlin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476130475633:android:ad50fbd8a63127641a65d0",
+        "android_client_info": {
+          "package_name": "ie.wit.doityourself"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476130475633-6073gcclq5tbn5kr78mgqqmlaijq1od8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.wit.doityourself",
+            "certificate_hash": "f76319d9d8f91294778b561a03aeeab52931238b"
+          }
+        },
+        {
+          "client_id": "476130475633-c0q9adhumjb2gpo827e5kr7i1r3gspc2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzNW1yOEC-cZmx34Pv7OvtfBiS3-BDWp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476130475633-c0q9adhumjb2gpo827e5kr7i1r3gspc2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
