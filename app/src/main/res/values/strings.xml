@@ -86,6 +86,7 @@
     <string name="emailpassword_title_text">Please Login Below</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
+    <string name="messageLoading">Please Wait while the DIY items are Loading...</string>
 
 
 

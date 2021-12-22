@@ -14,7 +14,7 @@ interface DIYClickListener {
 }
 
 // Adapter - accepts and installs an event handler based on the interface
-class DIYAdapter(private var tasks: List<DIYModel>,
+class DIYAdapter(private var tasks: ArrayList<DIYModel>,
                  private val listener: DIYClickListener) :
     RecyclerView.Adapter<DIYAdapter.MainHolder>() {
 
@@ -22,6 +22,11 @@ class DIYAdapter(private var tasks: List<DIYModel>,
         val binding = CardDiytaskBinding    // initialise view
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return MainHolder(binding = binding)    // return holder view
+    }
+
+    fun removeAt(position: Int) {
+        tasks.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
@@ -43,4 +48,6 @@ class DIYAdapter(private var tasks: List<DIYModel>,
             binding.executePendingBindings() // force bindings to happen immediately
         }
     }
+
+
 }
