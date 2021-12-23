@@ -6,13 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
 import ie.wit.doityourself.databinding.DiyEditFragmentBinding
+import ie.wit.doityourself.ui.auth.LoggedInViewModel
 import ie.wit.doityourself.ui.edit.DiyEditViewModel
+import ie.wit.doityourself.ui.list.DIYListViewModel
 import timber.log.Timber
 
 class DiyEditFragment: Fragment() {
@@ -20,6 +21,8 @@ class DiyEditFragment: Fragment() {
     private var _fragBinding: DiyEditFragmentBinding? = null
     private val fragBinding get() = _fragBinding!!
     private lateinit var diyEditViewModel: DiyEditViewModel
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+    private val diyListViewModel: DIYListViewModel by activityViewModels()
     private val args by navArgs<DiyEditFragmentArgs>()
 
 
@@ -34,18 +37,23 @@ class DiyEditFragment: Fragment() {
 
         diyEditViewModel = ViewModelProvider(this).get(DiyEditViewModel::class.java)
         diyEditViewModel.observableDiyTask.observe(viewLifecycleOwner, Observer { render() })
-        diyEditViewModel.observableStatus.observe(viewLifecycleOwner, Observer { status ->
-            status?.let { renderStatus(status) }
-        })
+//        diyEditViewModel.observableStatus.observe(viewLifecycleOwner, Observer { status ->
+//            status?.let { renderStatus(status) }
+//        })
 
         fragBinding.editTaskButton.setOnClickListener {
             Timber.i("EDIT TASK ${fragBinding.diytaskvm?.observableDiyTask!!.value!!}")
-            diyEditViewModel.editTask(fragBinding.diytaskvm?.observableDiyTask!!.value!!)
+            diyEditViewModel.editTask(loggedInViewModel.liveFirebaseUser.value?.uid!!,
+            args.taskid, fragBinding.diytaskvm?.observableDiyTask!!.value!!)
+            diyListViewModel.load()
+            findNavController().navigateUp()
+            //findNavController().popBackStack()
         }
-        fragBinding.deleteTaskButton.setOnClickListener {
-            Timber.i("DELETE TASK")
-            diyEditViewModel.deleteTask(fragBinding.diytaskvm?.observableDiyTask!!.value!!)
-        }
+//        fragBinding.deleteTaskButton.setOnClickListener {
+//            Timber.i("DELETE TASK")
+//            diyEditViewModel.deleteTask(loggedInViewModel.liveFirebaseUser.value?.uid!!,
+//                fragBinding.diytaskvm?.observableDiyTask!!.value!!)
+//        }
 
 
         return view
@@ -63,11 +71,13 @@ class DiyEditFragment: Fragment() {
 
     private fun render() {
         fragBinding.diytaskvm = diyEditViewModel
+        Timber.i("Retrofit fragBinding.diytaskvm == $fragBinding.diytaskvm")
     }
 
     override fun onResume() {
         super.onResume()
-        diyEditViewModel.getDiyTask(args.taskid)
+        diyEditViewModel.getDiyTask(loggedInViewModel.liveFirebaseUser.value?.uid!!,
+            args.taskid)
     }
 
     override fun onDestroyView() {

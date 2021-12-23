@@ -6,8 +6,6 @@ package ie.wit.doityourself.main
 */
 
 import android.app.Application
-//import ie.wit.doityourself.models.DIYJSONStore
-import ie.wit.doityourself.models.DIYManager
 import ie.wit.doityourself.models.DIYStore
 import timber.log.Timber
 

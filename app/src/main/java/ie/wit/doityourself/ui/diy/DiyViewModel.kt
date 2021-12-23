@@ -5,7 +5,8 @@ package ie.wit.doityourself.ui.diy
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ie.wit.doityourself.models.DIYManager
+import com.google.firebase.auth.FirebaseUser
+import ie.wit.doityourself.firebase.FirebaseDBManager
 import ie.wit.doityourself.models.DIYModel
 
 class DiyViewModel: ViewModel() {
@@ -20,17 +21,17 @@ class DiyViewModel: ViewModel() {
     val observableStatus: LiveData<Boolean>
         get() = status
 
-    fun addDiyTask(task: DIYModel) {
+    fun addDiyTask(firebaseUser: MutableLiveData<FirebaseUser>, task: DIYModel) {
         status.value = try {
-            DIYManager.create(task)
+            FirebaseDBManager.create(firebaseUser, task)
             true
         } catch (e: IllegalArgumentException) {
             false
         }
     }
 
-    fun getDiyTask(id: Long) {
-        task.value = DIYManager.findById(id)
-    }
+//    fun getDiyTask(id: Long) {
+//        task.value = DIYManager.findById(id)
+//    }
 
 }

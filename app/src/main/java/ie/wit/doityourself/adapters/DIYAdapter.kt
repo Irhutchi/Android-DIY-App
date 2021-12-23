@@ -41,7 +41,7 @@ class DIYAdapter(private var tasks: ArrayList<DIYModel>,
 
         fun bind(task: DIYModel, listener: DIYClickListener) {
             // update task data element with the individual task that is passed to main holder class
-            binding.root.tag = task.id
+            binding.root.tag = task.uid
             binding.task = task
             binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
             binding.root.setOnClickListener { listener.onDIYClick(task) }
