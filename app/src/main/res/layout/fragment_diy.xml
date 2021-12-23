@@ -89,18 +89,18 @@
                 android:text="@string/easy" />
 
             <RadioButton
-                android:id="@+id/veryHardBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="@string/very_hard" />
-
-            <RadioButton
                 android:id="@+id/hardBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:text="@string/hard" />
+
+            <RadioButton
+                android:id="@+id/veryHardBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/very_hard" />
         </RadioGroup>
 
         <Button

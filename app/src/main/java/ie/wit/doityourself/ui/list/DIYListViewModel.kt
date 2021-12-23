@@ -32,6 +32,17 @@ class DIYListViewModel : ViewModel() {
         }
     }
 
+
+//    fun delete(id: Long) {
+//        try {
+//            DIYManager.delete(task = id)
+//            Timber.i("Retrofit Delete Success")
+//        }
+//        catch (e: Exception) {
+//            Timber.i("Retrofit Delete Error : $e.message")
+//        }
+//    }
+
     // clean up resources when view model is detached or finished.
 //    override fun OnCleared() {
 //        super.onCleared()

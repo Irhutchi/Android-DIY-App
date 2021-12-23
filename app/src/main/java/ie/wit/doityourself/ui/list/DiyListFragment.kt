@@ -1,6 +1,7 @@
 package ie.wit.doityourself.ui.list
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -17,7 +18,10 @@ import ie.wit.doityourself.main.MainApp
 import ie.wit.doityourself.models.DIYModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ie.wit.doityourself.utils.*
 import timber.log.Timber
 
 
@@ -28,6 +32,7 @@ class DiyListFragment : Fragment(), DIYClickListener {
     private var _fragBinding: FragmentDiyListBinding? = null
     private val fragBinding get() = _fragBinding!!
     private lateinit var diyListViewModel:  DIYListViewModel
+    lateinit var loader : AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +42,7 @@ class DiyListFragment : Fragment(), DIYClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
+        loader = createLoader(requireActivity())
         _fragBinding = FragmentDiyListBinding.inflate(inflater, container, false)
         val view = fragBinding.root
 
@@ -47,18 +53,53 @@ class DiyListFragment : Fragment(), DIYClickListener {
         diyListViewModel = ViewModelProvider(this).get(DIYListViewModel::class.java)
         // observe public live data, when tasks changes we call render.
         diyListViewModel.observableTaskList.observe(viewLifecycleOwner, Observer { tasks ->
-            tasks?.let { render(tasks) }
+            tasks?.let { render(tasks as ArrayList<DIYModel>) }
+            hideLoader(loader)
+            checkSwipeRefresh()
         })
+        setSwipeRefresh()
+
+        val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                showLoader(loader,"Deleting Donation")
+                val adapter = fragBinding.recyclerView.adapter as DIYAdapter
+                adapter.removeAt(viewHolder.adapterPosition)
+                hideLoader(loader)
+            }
+        }
+        val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
+        itemTouchDeleteHelper.attachToRecyclerView(fragBinding.recyclerView)
+
+        val swipeEditHandler = object : SwipeToEditCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                onDIYClick(viewHolder.itemView.tag as DIYModel)
+            }
+        }
+        val itemTouchEditHelper = ItemTouchHelper(swipeEditHandler)
+        itemTouchEditHelper.attachToRecyclerView(fragBinding.recyclerView)
 
         val fab: FloatingActionButton = fragBinding.fab
         fab.setOnClickListener {
             val action = DiyListFragmentDirections.actionDiyListFragmentToDiyFragment()
             findNavController().navigate(action)
         }
+
         return view
     }
 
-    private fun render(taskList: List<DIYModel>) {
+    fun setSwipeRefresh() {
+        fragBinding.swiperefresh.setOnRefreshListener {
+            fragBinding.swiperefresh.isRefreshing = true
+            showLoader(loader,"Downloading Diy List")
+        }
+    }
+
+    fun checkSwipeRefresh() {
+        if (fragBinding.swiperefresh.isRefreshing)
+            fragBinding.swiperefresh.isRefreshing = false
+    }
+
+    private fun render(taskList: ArrayList<DIYModel>) {
         // create adapter passing in the list of tasks
         fragBinding.recyclerView.adapter = DIYAdapter(taskList, this)
         if (taskList.isEmpty()) {
@@ -69,7 +110,6 @@ class DiyListFragment : Fragment(), DIYClickListener {
             fragBinding.noTasksFound.visibility = View.GONE
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_list, menu)
@@ -97,6 +137,8 @@ class DiyListFragment : Fragment(), DIYClickListener {
         diyListViewModel.load()
 
     }
+
+
 
     // Register the callback
 //    private fun registerRefreshCallback() {

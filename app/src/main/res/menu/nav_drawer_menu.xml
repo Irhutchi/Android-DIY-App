@@ -18,19 +18,6 @@
             android:title="@string/action_camera" />
     </group>
 
-    <item android:title="@string/group_access">
-        <menu>
-            <item
-                android:id="@+id/splashFragment"
-                android:icon="@drawable/ic_menu_login"
-                android:title="@string/action_login" />
-            <item
-                android:id="@+id/home"
-                android:icon="@drawable/ic_menu_register"
-                android:title="@string/action_register" />
-        </menu>
-    </item>
-
     <item android:title="@string/group_communicate">
         <menu>
             <item
@@ -41,6 +28,16 @@
                 android:id="@+id/aboutusFragment"
                 android:icon="@drawable/ic_launcher_about"
                 android:title="@string/action_about" />
+        </menu>
+    </item>
+
+    <item android:title="@string/group_access">
+        <menu>
+            <item
+                android:id="@+id/nav_sign_out"
+                android:icon="@android:drawable/ic_menu_revert"
+                android:onClick="signOut"
+                android:title="@string/sign_out" />
         </menu>
     </item>
 </menu>
