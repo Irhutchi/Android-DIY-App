@@ -56,7 +56,6 @@ class DiyFragment : Fragment(), View.OnClickListener {
         getString(R.string.action_diy).also { activity?.title = it }
 
         diyViewModel = ViewModelProvider(this).get(DiyViewModel::class.java)
-//        diyViewModel.observableDiyTask.observe(viewLifecycleOwner, Observer { render() })
         diyViewModel.observableStatus.observe(viewLifecycleOwner, Observer { status ->
             status?.let { render(status) }
         })
@@ -82,31 +81,6 @@ class DiyFragment : Fragment(), View.OnClickListener {
             false -> Toast.makeText(context,getString(R.string.createTaskError), Toast.LENGTH_LONG).show()
         }
     }
-
-//    fragBinding.btnAdd.setOnClickListener {
-//        task.title = fragBinding.taskTitle.text.toString()
-//        task.description = fragBinding.description.text.toString()
-//
-//        val rgRating: String = if (fragBinding.rgRating.checkedRadioButtonId == R.id.easyBtn) {
-//            "Easy"
-//        } else if(fragBinding.rgRating.checkedRadioButtonId == R.id.hardBtn) {
-//            "Hard"
-//        } else "Very Hard"
-//        task.rating = rgRating
-//        Timber.i("Difficulty Rating $rgRating")
-//
-//        if(task.title.isEmpty()) {
-//            Snackbar
-//                .make(it, R.string.enter_diyTask_title, Snackbar.LENGTH_LONG)
-//                .show()
-//        } else {
-//            diyViewModel.addDiyTask(loggedInViewModel.liveFirebaseUser, DIYModel(title = title,
-//                description = description, rating = rgRating, image = image,
-//                email = loggedInViewModel.liveFirebaseUser.value?.email!!))
-//            Timber.i("add Button Pressed: $task.title")
-//            findNavController().navigate(R.id.diyListFragment)
-//        }
-//    }
 
     fun addNewTaskButtonListener(layout: FragmentDiyBinding) {
         layout.btnAdd.setOnClickListener {

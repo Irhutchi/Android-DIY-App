@@ -37,9 +37,6 @@ class DiyEditFragment: Fragment() {
 
         diyEditViewModel = ViewModelProvider(this).get(DiyEditViewModel::class.java)
         diyEditViewModel.observableDiyTask.observe(viewLifecycleOwner, Observer { render() })
-//        diyEditViewModel.observableStatus.observe(viewLifecycleOwner, Observer { status ->
-//            status?.let { renderStatus(status) }
-//        })
 
         fragBinding.editTaskButton.setOnClickListener {
             Timber.i("EDIT TASK ${fragBinding.diytaskvm?.observableDiyTask!!.value!!}")
@@ -49,11 +46,11 @@ class DiyEditFragment: Fragment() {
             findNavController().navigateUp()
             //findNavController().popBackStack()
         }
-//        fragBinding.deleteTaskButton.setOnClickListener {
-//            Timber.i("DELETE TASK")
-//            diyEditViewModel.deleteTask(loggedInViewModel.liveFirebaseUser.value?.uid!!,
-//                fragBinding.diytaskvm?.observableDiyTask!!.value!!)
-//        }
+        fragBinding.deleteTaskButton.setOnClickListener {
+            Timber.i("DELETE TASK")
+            diyListViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.uid!!,
+                diyEditViewModel.observableDiyTask.value?.uid!!)
+        }
 
 
         return view
