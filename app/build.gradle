@@ -77,6 +77,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:20.0.3'
     implementation platform('com.google.firebase:firebase-bom:29.0.2')
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    // display google profile photo (Picasso)
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 

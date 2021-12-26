@@ -1,10 +1,13 @@
 package ie.wit.doityourself.ui.auth
 
 import android.app.Application
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.NonNull
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseUser
 import ie.wit.doityourself.firebase.FirebaseAuthManager
 
@@ -20,5 +23,9 @@ class LoginRegisterViewModel (app: Application) : AndroidViewModel(app) {
 
     fun register(email: String?, password: String?) {
         firebaseAuthManager.register(email, password)
+    }
+
+    fun authWithGoogle(acct: GoogleSignInAccount) {
+        firebaseAuthManager.firebaseAuthWithGoogle(acct)
     }
 }
