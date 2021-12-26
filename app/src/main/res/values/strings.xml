@@ -84,6 +84,7 @@
     <string name="firebase_user_management">Firebase User Management</string>
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
     <string name="emailpassword_title_text">Please Login Below</string>
+<!--    <string name="default_web_client_id">Google Login</string>-->
     <string name="update">Update</string>
     <string name="delete">Delete</string>
     <string name="messageLoading">Please Wait while the DIY items are Loading...</string>
