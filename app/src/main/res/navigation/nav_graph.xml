@@ -63,6 +63,6 @@
             app:destination="@id/diyListFragment" />
         <argument
             android:name="taskid"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
 </navigation>

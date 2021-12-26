@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -21,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ie.wit.doityourself.ui.auth.LoggedInViewModel
 import ie.wit.doityourself.utils.*
 import timber.log.Timber
 
@@ -31,8 +33,10 @@ class DiyListFragment : Fragment(), DIYClickListener {
     lateinit var app: MainApp // ref to mainApp object (1)
     private var _fragBinding: FragmentDiyListBinding? = null
     private val fragBinding get() = _fragBinding!!
-    private lateinit var diyListViewModel:  DIYListViewModel
+//    private lateinit var diyListViewModel:  DIYListViewModel
     lateinit var loader : AlertDialog
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+    private val diyListViewModel: DIYListViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,28 +46,35 @@ class DiyListFragment : Fragment(), DIYClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
-        loader = createLoader(requireActivity())
         _fragBinding = FragmentDiyListBinding.inflate(inflater, container, false)
+        loader = createLoader(requireActivity())
         val view = fragBinding.root
 
         // setting up linear layout manager to display list of diy tasks
 
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        Timber.i("Called ViewModelProvider.get")
-        diyListViewModel = ViewModelProvider(this).get(DIYListViewModel::class.java)
-        // observe public live data, when tasks changes we call render.
-        diyListViewModel.observableTaskList.observe(viewLifecycleOwner, Observer { tasks ->
+        fragBinding.fab.setOnClickListener{
+            val action = DiyListFragmentDirections.actionDiyListFragmentToDiyFragment()
+            findNavController().navigate(action)
+        }
+        showLoader(loader,"Downloading Diy List")
+
+        diyListViewModel.observableTaskList.observe(viewLifecycleOwner, Observer {
+                tasks ->
             tasks?.let { render(tasks as ArrayList<DIYModel>) }
             hideLoader(loader)
             checkSwipeRefresh()
         })
+
         setSwipeRefresh()
 
         val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                showLoader(loader,"Deleting Donation")
+                showLoader(loader,"Deleting Task")
                 val adapter = fragBinding.recyclerView.adapter as DIYAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
+                diyListViewModel.delete(diyListViewModel.liveFirebaseUser.value?.uid!!,
+                    (viewHolder.itemView.tag as DIYModel).uid!!)
                 hideLoader(loader)
             }
         }
@@ -78,11 +89,6 @@ class DiyListFragment : Fragment(), DIYClickListener {
         val itemTouchEditHelper = ItemTouchHelper(swipeEditHandler)
         itemTouchEditHelper.attachToRecyclerView(fragBinding.recyclerView)
 
-        val fab: FloatingActionButton = fragBinding.fab
-        fab.setOnClickListener {
-            val action = DiyListFragmentDirections.actionDiyListFragmentToDiyFragment()
-            findNavController().navigate(action)
-        }
 
         return view
     }
@@ -91,6 +97,7 @@ class DiyListFragment : Fragment(), DIYClickListener {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader,"Downloading Diy List")
+            diyListViewModel.load()
         }
     }
 
@@ -122,7 +129,7 @@ class DiyListFragment : Fragment(), DIYClickListener {
     }
 
     override fun onDIYClick(task: DIYModel) {
-        val action = DiyListFragmentDirections.actionDiyListFragmentToDiyEditFragment(task.id)
+        val action = DiyListFragmentDirections.actionDiyListFragmentToDiyEditFragment(task.uid!!)
         findNavController().navigate(action)
     }
 
@@ -134,7 +141,13 @@ class DiyListFragment : Fragment(), DIYClickListener {
 
     override fun onResume() {
         super.onResume()
-        diyListViewModel.load()
+        showLoader(loader,"Downloading Donations")
+        loggedInViewModel.liveFirebaseUser.observe(viewLifecycleOwner, Observer { firebaseUser ->
+            if (firebaseUser != null) {
+                diyListViewModel.liveFirebaseUser.value = firebaseUser
+                diyListViewModel.load()
+            }
+        })
 
     }
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -20,6 +21,8 @@ import ie.wit.doityourself.helpers.showImagePicker
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import ie.wit.doityourself.DiyEditFragmentArgs
+import ie.wit.doityourself.ui.auth.LoggedInViewModel
+import ie.wit.doityourself.ui.list.DIYListViewModel
 
 
 class DiyFragment : Fragment(), View.OnClickListener {
@@ -28,6 +31,8 @@ class DiyFragment : Fragment(), View.OnClickListener {
     private val fragBinding get() = _fragBinding!!
     //private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var diyViewModel: DiyViewModel
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+    private val diyListViewModel: DIYListViewModel by activityViewModels()
 //    private val args by navArgs<Diy>()
     var task = DIYModel()
 
@@ -56,32 +61,7 @@ class DiyFragment : Fragment(), View.OnClickListener {
             status?.let { render(status) }
         })
 
-        fragBinding.btnAdd.setOnClickListener {
-            task.title = fragBinding.taskTitle.text.toString()
-            task.description = fragBinding.description.text.toString()
-
-            val rgRating: String = if (fragBinding.rgRating.checkedRadioButtonId == R.id.easyBtn) {
-                "Easy"
-            } else if(fragBinding.rgRating.checkedRadioButtonId == R.id.hardBtn) {
-                "Hard"
-            } else "Very Hard"
-            task.rating = rgRating
-            Timber.i("Difficulty Rating $rgRating")
-
-            if(task.title.isEmpty()) {
-                Snackbar
-                    .make(it, R.string.enter_diyTask_title, Snackbar.LENGTH_LONG)
-                    .show()
-            } else {
-                diyViewModel.addDiyTask(task.copy())
-                Timber.i("add Button Pressed: $task.title")
-                findNavController().navigate(R.id.diyListFragment)
-            }
-        }
-
-
-
-//        addNewTaskButtonListener(fragBinding)
+        addNewTaskButtonListener(fragBinding)
 
         fragBinding.btnPhoto.setOnClickListener {
             Timber.i("Take Photo")
@@ -103,27 +83,54 @@ class DiyFragment : Fragment(), View.OnClickListener {
         }
     }
 
+//    fragBinding.btnAdd.setOnClickListener {
+//        task.title = fragBinding.taskTitle.text.toString()
+//        task.description = fragBinding.description.text.toString()
+//
+//        val rgRating: String = if (fragBinding.rgRating.checkedRadioButtonId == R.id.easyBtn) {
+//            "Easy"
+//        } else if(fragBinding.rgRating.checkedRadioButtonId == R.id.hardBtn) {
+//            "Hard"
+//        } else "Very Hard"
+//        task.rating = rgRating
+//        Timber.i("Difficulty Rating $rgRating")
+//
+//        if(task.title.isEmpty()) {
+//            Snackbar
+//                .make(it, R.string.enter_diyTask_title, Snackbar.LENGTH_LONG)
+//                .show()
+//        } else {
+//            diyViewModel.addDiyTask(loggedInViewModel.liveFirebaseUser, DIYModel(title = title,
+//                description = description, rating = rgRating, image = image,
+//                email = loggedInViewModel.liveFirebaseUser.value?.email!!))
+//            Timber.i("add Button Pressed: $task.title")
+//            findNavController().navigate(R.id.diyListFragment)
+//        }
+//    }
+
     fun addNewTaskButtonListener(layout: FragmentDiyBinding) {
         layout.btnAdd.setOnClickListener {
-            task.title = fragBinding.taskTitle.text.toString()
-            task.description = fragBinding.description.text.toString()
+            val title = fragBinding.taskTitle.text.toString()
+            val description = fragBinding.description.text.toString()
 
             val rgRating: String = if (fragBinding.rgRating.checkedRadioButtonId == R.id.easyBtn) {
                 "Easy"
             } else if(fragBinding.rgRating.checkedRadioButtonId == R.id.hardBtn) {
                 "Hard"
             } else "Very Hard"
-            task.rating = rgRating
+            val rating = rgRating
             Timber.i("Difficulty Rating $rgRating")
 
-            if(task.title.isEmpty()) {
+            if(title.isEmpty()) {
                 Snackbar
                     .make(it, R.string.enter_diyTask_title, Snackbar.LENGTH_LONG)
                     .show()
             } else {
-                diyViewModel.addDiyTask(task.copy())
+                diyViewModel.addDiyTask(loggedInViewModel.liveFirebaseUser, DIYModel(title = title,
+                    description = description, rating = rating,
+                    email = loggedInViewModel.liveFirebaseUser.value?.email!!))
                 Timber.i("add Button Pressed: $task.title")
-                findNavController().navigate(R.id.diyListFragment)
+//                findNavController().navigate(R.id.diyListFragment)
             }
         }
     }
@@ -188,3 +195,5 @@ class DiyFragment : Fragment(), View.OnClickListener {
 //    }
 
 }
+
+

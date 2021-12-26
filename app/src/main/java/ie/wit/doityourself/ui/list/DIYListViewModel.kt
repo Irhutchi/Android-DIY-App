@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ie.wit.doityourself.models.DIYManager
+import com.google.firebase.auth.FirebaseUser
+import ie.wit.doityourself.firebase.FirebaseDBManager
 import ie.wit.doityourself.models.DIYModel
 import timber.log.Timber
 
@@ -17,6 +18,8 @@ class DIYListViewModel : ViewModel() {
     val observableTaskList: LiveData<List<DIYModel>>
         get() = taskList
 
+    var liveFirebaseUser = MutableLiveData<FirebaseUser>()
+
     // call load func when we initialise
     init { load()
         Timber.i("DiyViewModel created!")
@@ -24,8 +27,8 @@ class DIYListViewModel : ViewModel() {
 
     fun load() {
         try {
-            taskList.value = DIYManager.findAll()
-            Timber.i("Retrofit Success : $taskList.value")
+            FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!, taskList)
+            Timber.i("Diy Task Load Success : ${taskList.value.toString()}")
         }
         catch (e: Exception) {
             Timber.i("Retrofit Error : $e.message")
@@ -33,15 +36,15 @@ class DIYListViewModel : ViewModel() {
     }
 
 
-//    fun delete(id: Long) {
-//        try {
-//            DIYManager.delete(task = id)
-//            Timber.i("Retrofit Delete Success")
-//        }
-//        catch (e: Exception) {
-//            Timber.i("Retrofit Delete Error : $e.message")
-//        }
-//    }
+    fun delete(userid: String, id: String) {
+        try {
+            FirebaseDBManager.delete(userid, id)
+            Timber.i("Delete Success of $id by $userid")
+        }
+        catch (e: Exception) {
+            Timber.i("Delete Error : $e.message")
+        }
+    }
 
     // clean up resources when view model is detached or finished.
 //    override fun OnCleared() {
