@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -97,7 +98,10 @@ class DiyListFragment : Fragment(), DIYClickListener {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader,"Downloading Diy List")
-            diyListViewModel.load()
+            if(!diyListViewModel.readOnly.value!!) {
+                diyListViewModel.loadAll()
+            } else
+                diyListViewModel.load()
         }
     }
 
@@ -108,7 +112,8 @@ class DiyListFragment : Fragment(), DIYClickListener {
 
     private fun render(taskList: ArrayList<DIYModel>) {
         // create adapter passing in the list of tasks
-        fragBinding.recyclerView.adapter = DIYAdapter(taskList, this)
+        fragBinding.recyclerView.adapter = DIYAdapter(taskList, this,
+                                        diyListViewModel.readOnly.value!!)
         if (taskList.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.noTasksFound.visibility = View.VISIBLE
@@ -120,6 +125,17 @@ class DiyListFragment : Fragment(), DIYClickListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_list, menu)
+
+        val item = menu.findItem(R.id.toggleDonations) as MenuItem
+        item.setActionView(R.layout.togglebutton_layout)
+        val toggleDonations: SwitchCompat = item.actionView.findViewById(R.id.toggleButton)
+        toggleDonations.isChecked = false
+
+        toggleDonations.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) diyListViewModel.loadAll()
+            else diyListViewModel.load()
+        }
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -130,7 +146,10 @@ class DiyListFragment : Fragment(), DIYClickListener {
 
     override fun onDIYClick(task: DIYModel) {
         val action = DiyListFragmentDirections.actionDiyListFragmentToDiyEditFragment(task.uid!!)
-        findNavController().navigate(action)
+
+        if(!diyListViewModel.readOnly.value!!) {
+            findNavController().navigate(action)
+        }
     }
 
 

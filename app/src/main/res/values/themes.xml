@@ -63,5 +63,9 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">30sp</item>
     </style>
-    <!-- END Firebase Resources-->
+    <!-- Toggle to Display all DIY Tasks-->
+    <style name="toggleStyle">
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/black</item>
+    </style>
 </resources>

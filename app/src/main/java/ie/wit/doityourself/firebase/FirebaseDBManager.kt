@@ -12,7 +12,25 @@ object FirebaseDBManager: DIYStore {
     var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     override fun findAll(taskList: MutableLiveData<List<DIYModel>>) {
-        TODO("Not yet implemented")
+        database.child("tasks")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Timber.i("Firebase error : ${error.message}")
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val localList = ArrayList<DIYModel>()
+                    val children = snapshot.children
+                    children.forEach {
+                        val task = it.getValue(DIYModel::class.java)
+                        localList.add(task!!)
+                    }
+                    database.child("tasks")
+                        .removeEventListener(this)
+
+                    taskList.value = localList
+                }
+            })
     }
 
     override fun findAll(userid: String, taskList: MutableLiveData<List<DIYModel>>) {
