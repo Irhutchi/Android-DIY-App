@@ -5,6 +5,9 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -20,9 +23,11 @@ import ie.wit.doityourself.R
 import ie.wit.doityourself.databinding.HomeBinding
 import ie.wit.doityourself.databinding.NavHeaderBinding
 import ie.wit.doityourself.firebase.FirebaseImageManager
+import ie.wit.doityourself.helpers.showImagePicker
 import ie.wit.doityourself.ui.auth.LoggedInViewModel
 import ie.wit.doityourself.ui.auth.Login
 import ie.wit.doityourself.utils.customTransformation
+import ie.wit.doityourself.utils.readImageUri
 import timber.log.Timber
 
 class Home : AppCompatActivity() {
@@ -33,6 +38,7 @@ class Home : AppCompatActivity() {
     private lateinit var navHeaderBinding : NavHeaderBinding
     private lateinit var headerView : View
     private lateinit var loggedInViewModel : LoggedInViewModel
+    private lateinit var intentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,12 +79,18 @@ class Home : AppCompatActivity() {
             }
         })
 
+        registerImagePickerCallback()
+
     }
 
     private fun initNavHeader() {
         Timber.i("DX Init Nav Header")
         headerView = homeBinding.navView.getHeaderView(0)
         navHeaderBinding = NavHeaderBinding.bind(headerView)
+        navHeaderBinding.navHeaderImage.setOnClickListener {
+            showImagePicker(intentLauncher)
+            Toast.makeText(this,"Click To Change Image",Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun updateNavHeader(currentUser: FirebaseUser) {
@@ -127,6 +139,25 @@ class Home : AppCompatActivity() {
         val intent = Intent(this, Login::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+    }
+
+    private fun registerImagePickerCallback() {
+        intentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            Timber.i("DX registerPickerCallback() ${readImageUri(result.resultCode, result.data).toString()}")
+                            FirebaseImageManager
+                                .updateUserImage(loggedInViewModel.liveFirebaseUser.value!!.uid,
+                                    readImageUri(result.resultCode, result.data),
+                                    navHeaderBinding.navHeaderImage,
+                                    true)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 
 

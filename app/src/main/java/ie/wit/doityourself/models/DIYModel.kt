@@ -13,7 +13,8 @@ data class DIYModel(
     var title: String = "",
     var description: String = "",
     var rating: String = "",
-    var email: String = "")
+    var profilepic: String = "",
+    var email: String? = "")
     : Parcelable
 {
     @Exclude
@@ -23,6 +24,7 @@ data class DIYModel(
             "title" to title,
             "description" to description,
             "rating" to rating,
+            "profilepic" to profilepic,
             "email" to email
         )
     }

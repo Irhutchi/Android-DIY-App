@@ -2,10 +2,13 @@ package ie.wit.doityourself.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ie.wit.doityourself.R
 import ie.wit.doityourself.databinding.CardDiytaskBinding
 import ie.wit.doityourself.models.DIYModel
+import ie.wit.doityourself.utils.customTransformation
 
 // interface will represent click events on the task Card.
 interface DIYClickListener {
@@ -45,6 +48,11 @@ class DIYAdapter(private var tasks: ArrayList<DIYModel>,
             // update task data element with the individual task that is passed to main holder class
             binding.root.tag = task.uid
             binding.task = task
+            Picasso.get().load(task.profilepic.toUri())
+                .resize(200, 200)
+                .transform(customTransformation())
+                .centerCrop()
+                .into(binding.imageIcon)
             binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
             binding.root.setOnClickListener { listener.onDIYClick(task) }
             binding.executePendingBindings() // force bindings to happen immediately

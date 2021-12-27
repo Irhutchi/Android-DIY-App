@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import ie.wit.doityourself.firebase.FirebaseDBManager
+import ie.wit.doityourself.firebase.FirebaseImageManager
 import ie.wit.doityourself.models.DIYModel
 
 class DiyViewModel: ViewModel() {
@@ -23,7 +24,9 @@ class DiyViewModel: ViewModel() {
 
     fun addDiyTask(firebaseUser: MutableLiveData<FirebaseUser>, task: DIYModel) {
         status.value = try {
+            task.profilepic = FirebaseImageManager.imageUri.value.toString()
             FirebaseDBManager.create(firebaseUser, task)
+
             true
         } catch (e: IllegalArgumentException) {
             false

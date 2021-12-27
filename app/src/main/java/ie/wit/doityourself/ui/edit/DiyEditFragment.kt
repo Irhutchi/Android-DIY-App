@@ -50,6 +50,7 @@ class DiyEditFragment: Fragment() {
             Timber.i("DELETE TASK")
             diyListViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.uid!!,
                 diyEditViewModel.observableDiyTask.value?.uid!!)
+            findNavController().popBackStack()
         }
 
 
