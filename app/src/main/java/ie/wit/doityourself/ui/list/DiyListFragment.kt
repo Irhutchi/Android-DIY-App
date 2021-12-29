@@ -94,7 +94,7 @@ class DiyListFragment : Fragment(), DIYClickListener {
         return view
     }
 
-    fun setSwipeRefresh() {
+    private fun setSwipeRefresh() {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader,"Downloading Diy List")
@@ -105,7 +105,7 @@ class DiyListFragment : Fragment(), DIYClickListener {
         }
     }
 
-    fun checkSwipeRefresh() {
+    private fun checkSwipeRefresh() {
         if (fragBinding.swiperefresh.isRefreshing)
             fragBinding.swiperefresh.isRefreshing = false
     }
@@ -146,7 +146,6 @@ class DiyListFragment : Fragment(), DIYClickListener {
 
     override fun onDIYClick(task: DIYModel) {
         val action = DiyListFragmentDirections.actionDiyListFragmentToDiyEditFragment(task.uid!!)
-
         if(!diyListViewModel.readOnly.value!!) {
             findNavController().navigate(action)
         }

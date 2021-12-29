@@ -46,7 +46,7 @@ class DIYAdapter(private var tasks: ArrayList<DIYModel>,
 
         fun bind(task: DIYModel, listener: DIYClickListener) {
             // update task data element with the individual task that is passed to main holder class
-            binding.root.tag = task.uid
+            binding.root.tag = task //.uid
             binding.task = task
             Picasso.get().load(task.profilepic.toUri())
                 .resize(200, 200)
@@ -58,6 +58,4 @@ class DIYAdapter(private var tasks: ArrayList<DIYModel>,
             binding.executePendingBindings() // force bindings to happen immediately
         }
     }
-
-
 }

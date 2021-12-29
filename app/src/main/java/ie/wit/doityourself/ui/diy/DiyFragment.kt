@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -29,20 +32,17 @@ class DiyFragment : Fragment(), View.OnClickListener {
 
     private var _fragBinding: FragmentDiyBinding? = null
     private val fragBinding get() = _fragBinding!!
-    //private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var diyViewModel: DiyViewModel
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
     private val diyListViewModel: DIYListViewModel by activityViewModels()
-//    private val args by navArgs<Diy>()
     var task = DIYModel()
-
-    var edit = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.i("DIY Fragment started...")
         setHasOptionsMenu(true)
-//        registerImagePickerCallback()   // initialise the image picker callback func.
+        registerImagePickerCallback()   // initialise the image picker callback func.
 
     }
 
@@ -62,6 +62,11 @@ class DiyFragment : Fragment(), View.OnClickListener {
 
         addNewTaskButtonListener(fragBinding)
 
+        fragBinding.chooseImage.setOnClickListener {
+            Timber.i("Select image")
+            showImagePicker(imageIntentLauncher)    // trigger the image picker
+
+        }
         fragBinding.btnPhoto.setOnClickListener {
             Timber.i("Take Photo")
             val action = DiyFragmentDirections.actionDiyFragmentToCameraFragment()
@@ -92,7 +97,7 @@ class DiyFragment : Fragment(), View.OnClickListener {
             } else if(fragBinding.rgRating.checkedRadioButtonId == R.id.hardBtn) {
                 "Hard"
             } else "Very Hard"
-            val rating = rgRating
+//            val rating = rgRating
             Timber.i("Difficulty Rating $rgRating")
 
             if(title.isEmpty()) {
@@ -101,7 +106,7 @@ class DiyFragment : Fragment(), View.OnClickListener {
                     .show()
             } else {
                 diyViewModel.addDiyTask(loggedInViewModel.liveFirebaseUser, DIYModel(title = title,
-                    description = description, rating = rating,
+                    description = description, rating = rgRating,
                     email = loggedInViewModel.liveFirebaseUser.value?.email!!))
                 Timber.i("add Button Pressed: $task.title")
 //                findNavController().navigate(R.id.diyListFragment)
@@ -144,29 +149,29 @@ class DiyFragment : Fragment(), View.OnClickListener {
     }
 
 
-//    private fun registerImagePickerCallback() {
-//        imageIntentLauncher =
-//            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-//            { result ->
-//                when (result.resultCode) {
-//                    AppCompatActivity.RESULT_OK -> {
-//                        if (result.data != null) {
-//                            Timber.i("Got Result ${result.data!!.data}")
-//                            // Only recovering uri when the result Code is RESULT_OK
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    AppCompatActivity.RESULT_OK -> {
+                        if (result.data != null) {
+                            Timber.i("Got Result ${result.data!!.data}")
+                            // Only recovering uri when the result Code is RESULT_OK
 //                            task.image = result.data!!.data!!
-//                            Picasso.get()
+                            Picasso.get()
 //                                .load(task.image)
 //                                .into(fragBinding.taskImage)
-//                            // when an image is changed, also change the label
-//                            fragBinding.chooseImage.setText(R.string.change_task_image)
-//                        }
-//                    }
-//                    AppCompatActivity.RESULT_CANCELED -> {
-//                    }
-//                    else -> { }
-//                }
-//            }
-//    }
+                            // when an image is changed, also change the label
+                            fragBinding.chooseImage.setText(R.string.change_task_image)
+                        }
+                    }
+                    AppCompatActivity.RESULT_CANCELED -> {
+                    }
+                    else -> { }
+                }
+            }
+    }
 
 }
 

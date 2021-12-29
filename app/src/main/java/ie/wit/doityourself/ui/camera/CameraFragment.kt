@@ -26,11 +26,6 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CameraFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CameraFragment : Fragment() {
 
     lateinit var app: MainApp // ref to mainApp object (1)
@@ -168,7 +163,6 @@ class CameraFragment : Fragment() {
                     this, cameraSelector,
                     preview, imageCapture
                 )
-
             } catch (err: Exception) {
                 i("startCamera Fail:")
             }
@@ -196,6 +190,7 @@ class CameraFragment : Fragment() {
     }
 
 
+
     // Request permission to access camera
     private fun allPermissionGranted() =
         Constants.REQUIRED_PERMISSIONS.all {
@@ -218,14 +213,6 @@ class CameraFragment : Fragment() {
 
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CameraFragment.
-         */
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             CameraFragment().apply {
