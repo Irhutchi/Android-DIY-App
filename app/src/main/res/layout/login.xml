@@ -47,7 +47,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="65dp"
         android:layout_weight="1"
         android:background="@color/white"
         android:gravity="center_vertical">
@@ -135,9 +135,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAllCaps="true"
                 android:text="@string/reset_password"
-                android:theme="@style/ThemeOverlay.MyDarkButton"/>
+                android:textAllCaps="true"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
         </LinearLayout>
     </RelativeLayout>
 

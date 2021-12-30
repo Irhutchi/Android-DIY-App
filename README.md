@@ -69,8 +69,10 @@ fragBinding.fab.setOnClickListener{
 <br>
 
 **Fragments** 
-The use of fragment are used extensively throughout development. These are very useful as they are reusable and have their own lifecycles. When a user commits an action, for example creating a new task. The NavController handles the transaction by taking from the back stack allowing the user navigate backward to the list view actvity.[3]
-
+The use of fragment are used extensively throughout development. These are very useful as they are reusable and have their own lifecycles. When a user commits an action, for example creating a new task. The NavController handles the transaction by taking from the back stack allowing the user navigate backward to the list view activity [3].
+<br>
+**Recycler View**
+<br> <img src="/app/src/images/RecyclerView.png" width="200" height="325" /> <br>
 **CameraX API** <br>
 CameraX is a Jetpack support library [4]. It provides a way to interface with the devices camera. Before the app can access the camera, it will prompt the user to permission to access the camera. <br>
 <img src="/app/src/images/camera_permissions.png" width="185" height="325" /> <img src="/app/src/images/camera_fragment.png" width="185" height="325" /> <br>
