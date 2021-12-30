@@ -10,6 +10,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import ie.wit.doityourself.R
 import timber.log.Timber
 
@@ -76,6 +78,7 @@ class FirebaseAuthManager(application: Application) {
 
     fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         Timber.i( "DonationX firebaseAuthWithGoogle:" + acct.id!!)
+        val auth = Firebase.auth
 
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         firebaseAuth!!.signInWithCredential(credential)

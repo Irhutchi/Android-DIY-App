@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:weightSum="4">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -43,7 +44,6 @@
             tools:text="Firebase User ID: 123456789abc" />
 
     </LinearLayout>
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -106,6 +106,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/resetEmailPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/emailPasswordButtons"
@@ -121,36 +122,23 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/signedInButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_below="@+id/resetEmailPassword"
             android:orientation="horizontal"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:visibility="gone"
-            android:weightSum="2.0">
+            android:paddingRight="16dp">
 
             <Button
-                android:id="@+id/signOutButton"
+                android:id="@+id/resetPasswordBtn"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:text="@string/sign_out"
-                android:theme="@style/ThemeOverlay.MyDarkButton" />
-
-            <Button
-                android:id="@+id/verifyEmailButton"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:text="@string/verify_email"
-                android:theme="@style/ThemeOverlay.MyDarkButton" />
-
+                android:layout_weight="1"
+                android:textAllCaps="true"
+                android:text="@string/reset_password"
+                android:theme="@style/ThemeOverlay.MyDarkButton"/>
         </LinearLayout>
-
     </RelativeLayout>
 
 </LinearLayout>

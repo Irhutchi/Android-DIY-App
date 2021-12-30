@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/diyEditFragment"
         android:name="ie.wit.doityourself.DiyEditFragment"
-        android:label="diy_edit_fragment"
+        android:label="Edit Task"
         tools:layout="@layout/diy_edit_fragment" >
         <action
             android:id="@+id/action_diyEditFragment_to_diyListFragment"

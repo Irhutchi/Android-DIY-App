@@ -1,12 +1,18 @@
 package ie.wit.doityourself.ui.auth
 
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.os.UserHandle
 import android.text.TextUtils
+import android.util.Log
+import android.util.Patterns
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +20,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import ie.wit.doityourself.R
 import ie.wit.doityourself.databinding.LoginBinding
 import ie.wit.doityourself.ui.home.Home
@@ -45,7 +53,11 @@ class Login : AppCompatActivity() {
             googleSignIn()
         }
 
+        loginBinding.resetPasswordBtn.setOnClickListener{
+           passwordReset()
+        }
     }
+
 
     public override fun onStart() {
         super.onStart()
@@ -94,7 +106,7 @@ class Login : AppCompatActivity() {
 
         val email = loginBinding.fieldEmail.text.toString()
         if (TextUtils.isEmpty(email)) {
-            loginBinding.fieldEmail.error = "Required."
+            loginBinding.fieldEmail.error = "Email Address is not provided."
             valid = false
         } else {
             loginBinding.fieldEmail.error = null
@@ -102,7 +114,7 @@ class Login : AppCompatActivity() {
 
         val password = loginBinding.fieldPassword.text.toString()
         if (TextUtils.isEmpty(password)) {
-            loginBinding.fieldPassword.error = "Required."
+            loginBinding.fieldPassword.error = "Password is not provided."
             valid = false
         } else {
             loginBinding.fieldPassword.error = null
@@ -140,5 +152,41 @@ class Login : AppCompatActivity() {
                     } else -> { }
                 }
             }
+    }
+
+
+    private fun passwordReset() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Forgot Password")
+        val view = layoutInflater.inflate(R.layout.forgot_password_dialog, null)
+        // create EditText object by calling findViewById on the view object
+        val username = view.findViewById<EditText>(R.id.et_username)
+        builder.setView(view)
+
+        builder.setPositiveButton("Reset", DialogInterface.OnClickListener{_, _ ->
+            //evaluate the email address - read in the value of edit text.
+            forgotPassword(username)
+        })
+        builder.setNegativeButton("Close", DialogInterface.OnClickListener{_, _ -> })
+        // make the dialog visible to the user
+        builder.show()
+    }
+
+    private fun forgotPassword(username: EditText) {
+        if (username.text.toString().isEmpty()) {
+            return
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(username.text.toString()).matches()) {
+            return
+        }
+
+        Firebase.auth.sendPasswordResetEmail(username.text.toString())
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Email sent.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
     }
 }
