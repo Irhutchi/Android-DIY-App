@@ -12,6 +12,7 @@
     <string name="save_task">Update</string>
     <string name="button_addRating">Add DIY Task</string>
     <string name="edit_diy">Edit Diy Task</string>
+    <string name="search_list">Search</string>
 
 
 
@@ -41,6 +42,7 @@
     <string name="action_share">Share</string>
     <string name="action_send">Send</string>
     <string name="group_communicate">Communicate</string>
+    <string name="switch_theme">Theme</string>
     <string name="select_profile_image">Select Profile Image</string>
 
     <!-- Nav Drawer About -->

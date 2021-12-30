@@ -12,6 +12,12 @@
         android:title="@string/action_about"
         app:showAsAction="never" />
     <item
+        android:id="@+id/search"
+        android:title="@string/search_list"
+        android:icon="@drawable/ic_menu_search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+    <item
         android:id="@+id/toggleDonations"
         android:title=""
         app:actionLayout="@layout/togglebutton_layout"

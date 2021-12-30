@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
@@ -14,16 +15,18 @@
             android:title="@string/action_diyList" />
         <item
             android:id="@+id/cameraFragment"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_launcher_about"
             android:title="@string/action_camera" />
+        <item
+            android:id="@+id/toggleTheme"
+            android:icon="@drawable/ic_dark_mode"
+            android:title="@string/switch_theme"
+            app:actionLayout="@layout/toggle_theme"/>
     </group>
 
     <item android:title="@string/group_communicate">
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/action_share" />
+
             <item
                 android:id="@+id/aboutusFragment"
                 android:icon="@drawable/ic_launcher_about"

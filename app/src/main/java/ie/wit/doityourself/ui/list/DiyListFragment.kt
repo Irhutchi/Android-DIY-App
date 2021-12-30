@@ -3,8 +3,9 @@ package ie.wit.doityourself.ui.list
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import android.widget.ArrayAdapter
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,14 +20,12 @@ import ie.wit.doityourself.databinding.FragmentDiyListBinding
 import ie.wit.doityourself.main.MainApp
 import ie.wit.doityourself.models.DIYModel
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.wit.doityourself.ui.auth.LoggedInViewModel
 import ie.wit.doityourself.utils.*
-import timber.log.Timber
-
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DiyListFragment : Fragment(), DIYClickListener {
 
@@ -36,6 +35,7 @@ class DiyListFragment : Fragment(), DIYClickListener {
     private val fragBinding get() = _fragBinding!!
 //    private lateinit var diyListViewModel:  DIYListViewModel
     lateinit var loader : AlertDialog
+
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
     private val diyListViewModel: DIYListViewModel by activityViewModels()
 
@@ -136,6 +136,30 @@ class DiyListFragment : Fragment(), DIYClickListener {
             else diyListViewModel.load()
         }
 
+        val search = menu.findItem(R.id.search)
+        val searchView = search.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                //TODO
+                return true
+            }
+
+            // method is called whenever a user types/changes any text input
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                val searchText = newText!!.toLowerCase(Locale.getDefault())
+                if (searchText.isNotEmpty()) {
+                    //TODO
+                }
+
+                return false
+            }
+
+
+        })
+
+
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -168,13 +192,4 @@ class DiyListFragment : Fragment(), DIYClickListener {
         })
 
     }
-
-
-
-    // Register the callback
-//    private fun registerRefreshCallback() {
-//        refreshIntentLauncher =
-//            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-//            { loadDIYTasks() }
-//    }
 }

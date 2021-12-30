@@ -1,10 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.DoItYourself" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <!-- Dark application theme. -->
+    <style name="Theme.DoItYourselfDark" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="background_color">#131313</item>
         <item name="colorOnPrimary">@color/black</item>
+
+        <!--     Our app's background changes to black when dark mode is activated -->
+        <item name="text_color">#ffff</item>
+        <!--     text and button color change to white to contrast with the app's background-->
+        <item name="button_color">#ffff</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>

@@ -6,19 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import android.widget.ToggleButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import com.google.firebase.auth.FirebaseUser
-import com.squareup.picasso.Picasso
 import ie.wit.doityourself.R
 import ie.wit.doityourself.databinding.HomeBinding
 import ie.wit.doityourself.databinding.NavHeaderBinding
@@ -26,7 +24,6 @@ import ie.wit.doityourself.firebase.FirebaseImageManager
 import ie.wit.doityourself.helpers.showImagePicker
 import ie.wit.doityourself.ui.auth.LoggedInViewModel
 import ie.wit.doityourself.ui.auth.Login
-import ie.wit.doityourself.utils.customTransformation
 import ie.wit.doityourself.utils.readImageUri
 import timber.log.Timber
 
@@ -63,6 +60,30 @@ class Home : AppCompatActivity() {
 
         val navView = homeBinding.navView
         navView.setupWithNavController(navController)
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.Theme_DoItYourself_NoActionBar) //when dark mode is enabled, we use the dark theme
+        } else {
+            setTheme(R.style.Theme_DoItYourself)  //default app theme
+        }
+
+
+//        val toggle: ToggleButton = findViewById(R.id.toggleTheme)
+////        val item = menu.findById(R.id.toggleTheme) as MenuItem
+////        item.setActionView(R.layout.toggle_theme)
+////        val toggleTheme: SwitchCompat = item.findViewById(R.id.toggleButton)
+////        toggleTheme.isChecked = false
+//
+//        toggle.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                Toast.makeText(this, if(isChecked) "Dark Mode ON" else "Dark Mode OFF", Toast.LENGTH_SHORT).show()
+//            } else {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//            }
+//
+//        }
+
     }
 
     public override fun onStart() {
@@ -80,7 +101,6 @@ class Home : AppCompatActivity() {
         })
 
         registerImagePickerCallback()
-
     }
 
     private fun initNavHeader() {
